@@ -8,17 +8,23 @@ using UnityEngine;
 
 public class Ocean : MonoBehaviour
 {
-    private GameObject player;
+    public BoxCollider[] col;
+    public Boat boat;
 
     private void Start()
     {
-        player= GetComponent<GameObject>();
+        col=GetComponents<BoxCollider>();
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag=="Player")
-        {
 
-        }
+    private void Update()
+    {
+        //if(boat.isonboat==true)
+        //{
+        //    for(int i=0;i<col.length;i++)
+        //    {
+                //col[i].istrigger = false;
+        //    }
+        //}
     }
+
 }

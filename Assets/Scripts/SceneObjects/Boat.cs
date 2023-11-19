@@ -10,15 +10,24 @@ using UnityEngine.UI;
 public class Boat : MonoBehaviour
 {
     public Button startBoat;
-    public Transform playerPOs;
+    public Button finishBoat;
+    public Transform playerPos;
+    public BoxCollider col;
+    public GameObject maTou;
 
-    private PlayerState playerState;
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             startBoat.gameObject.SetActive(true);
+
+        }
+
+        if(other.gameObject.tag=="MaTou")
+        {
+            finishBoat.gameObject.SetActive(true);
             Debug.Log("aaa");
         }
     }
@@ -28,15 +37,27 @@ public class Boat : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             startBoat.gameObject.SetActive(false);
-            Debug.Log("bbb");
+         
+        }
+        if (other.gameObject.tag == "MaTou")
+        {
+            finishBoat.gameObject.SetActive(false);
         }
     }
 
     public void StickWithPlayer()
     {
-        //playerState.isOnBoat= true;
         startBoat.gameObject.SetActive(false);
-        transform.parent=playerPOs.transform;
+        transform.parent=playerPos.transform;
+        col.isTrigger = false;
     }
+
+    public void PlayerGetBackToMaTou()
+    {
+        transform.parent = null;
+        playerPos.transform.position=maTou.transform.position;
+    }
+
+    
 
 }
