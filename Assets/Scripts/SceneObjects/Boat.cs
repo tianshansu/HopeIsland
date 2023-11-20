@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,53 +12,41 @@ public class Boat : MonoBehaviour
 {
     public Button startBoat;
     public Button finishBoat;
+    public Button fishing;
     public Transform playerPos;
-    public BoxCollider col;
-    public GameObject maTou;
+    public PlayerController player;
+    public GameObject facingPt;
+
+    private Transform maTou;
 
 
-
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if(other.tag=="MaTou")
         {
-            startBoat.gameObject.SetActive(true);
-
-        }
-
-        if(other.gameObject.tag=="MaTou")
-        {
-            finishBoat.gameObject.SetActive(true);
-            Debug.Log("aaa");
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            startBoat.gameObject.SetActive(false);
-         
-        }
-        if (other.gameObject.tag == "MaTou")
-        {
-            finishBoat.gameObject.SetActive(false);
+            maTou = other.gameObject.transform;
         }
     }
 
     public void StickWithPlayer()
     {
+        player.MoveToNewPlace(gameObject.transform.position);//改变玩家位置
+        playerPos.forward = facingPt.transform.forward;//改变玩家朝向为船头处的那个点的朝向
         startBoat.gameObject.SetActive(false);
+        fishing.gameObject.SetActive(true);
         transform.parent=playerPos.transform;
-        col.isTrigger = false;
     }
+
 
     public void PlayerGetBackToMaTou()
     {
         transform.parent = null;
-        playerPos.transform.position=maTou.transform.position;
+        player.MoveToNewPlace(maTou.transform.position);
+        finishBoat.gameObject.SetActive(false);
+        fishing.gameObject.SetActive(false);
+
     }
 
-    
+
 
 }
