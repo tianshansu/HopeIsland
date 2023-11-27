@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -24,6 +25,11 @@ public class PlayerController : MonoBehaviour
     public Vector3 fishPt;
     public GameObject lastBone;
     private Rigidbody lastBoneRb;
+    public GameObject fishingPole;
+    private Animation fishing;
+    private Vector3 ropeInitialPos;
+    public Canvas touchCanvas;
+   
 
 
     private void Start()
@@ -31,6 +37,8 @@ public class PlayerController : MonoBehaviour
         controller = gameObject.GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         lastBoneRb = lastBone.GetComponent<Rigidbody>();
+        fishing = fishingPole.GetComponent<Animation>();
+        ropeInitialPos = lastBone.transform.localPosition;
     }
 
     void Update()
@@ -59,7 +67,11 @@ public class PlayerController : MonoBehaviour
             if (playerInput.actions["Move"].WasReleasedThisFrame())//当松开时
             {
                 fishPt = hook.transform.position;
+                fishing.Play();
                 MoveRope(fishPt);
+                hook.SetActive(false);
+                playerInput.DeactivateInput();//禁止输入
+                touchCanvas.gameObject.SetActive(false);
             }
 
         }
@@ -84,15 +96,23 @@ public class PlayerController : MonoBehaviour
     public void FinishFishing()
     {
         isFishing = false;
-        hook.SetActive(false);
+        lastBone.gameObject.transform.localPosition = ropeInitialPos;
         finishFishing.gameObject.SetActive(false);
         startFishing.gameObject.SetActive(true);
+        playerInput.ActivateInput();//允许输入
+        touchCanvas.gameObject.SetActive(true);
     }
 
     public void MoveRope(Vector3 pt)
     {
-        lastBone.gameObject.transform.position =pt;
-        
+        lastBoneRb.AddForce(0, 200, 0);
+        lastBone.gameObject.transform.position = pt;
         lastBoneRb.constraints = RigidbodyConstraints.FreezeAll;
+        
     }
+
+ 
+
+    
+
 }
