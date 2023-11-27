@@ -21,12 +21,16 @@ public class PlayerController : MonoBehaviour
     public bool isFishing;
     public Button startFishing;
     public Button finishFishing;
+    public Vector3 fishPt;
+    public GameObject lastBone;
+    private Rigidbody lastBoneRb;
 
 
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
+        lastBoneRb = lastBone.GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -52,8 +56,13 @@ public class PlayerController : MonoBehaviour
 
             hook.transform.Translate(move * Time.deltaTime * fishingSpeed);//让钩子移动
 
-        }
+            if (playerInput.actions["Move"].WasReleasedThisFrame())//当松开时
+            {
+                fishPt = hook.transform.position;
+                MoveRope(fishPt);
+            }
 
+        }
     }
 
 
@@ -78,5 +87,12 @@ public class PlayerController : MonoBehaviour
         hook.SetActive(false);
         finishFishing.gameObject.SetActive(false);
         startFishing.gameObject.SetActive(true);
+    }
+
+    public void MoveRope(Vector3 pt)
+    {
+        lastBone.gameObject.transform.position =pt;
+        
+        lastBoneRb.constraints = RigidbodyConstraints.FreezeAll;
     }
 }
