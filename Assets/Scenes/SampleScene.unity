@@ -2766,9 +2766,8 @@ MonoBehaviour:
   isFishing: 0
   startFishing: {fileID: 1603350662}
   finishFishing: {fileID: 1617624352}
-  fishPtX: 0
-  fishPtZ: 0
-  lastBone: {fileID: 941912719}
+  fishPt: {x: 0, y: 0, z: 0}
+  lastBone: {fileID: 1214112637}
 --- !u!114 &1279787839
 MonoBehaviour:
   m_ObjectHideFlags: 0
