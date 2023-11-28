@@ -29,7 +29,15 @@ public class PlayerController : MonoBehaviour
     private Animation fishing;
     private Vector3 ropeInitialPos;
     public Canvas touchCanvas;
-   
+    
+
+    public bool findFish;
+    public GameObject fish1Prefab;
+    public bool fishCreated;
+    public GameObject fishAttachPt;
+
+    public GameObject panel;
+    public GameObject currentYuQun;
 
 
     private void Start()
@@ -39,11 +47,14 @@ public class PlayerController : MonoBehaviour
         lastBoneRb = lastBone.GetComponent<Rigidbody>();
         fishing = fishingPole.GetComponent<Animation>();
         ropeInitialPos = lastBone.transform.localPosition;
+
+       
     }
 
     void Update()
     {
-        if (isFishing == false){
+        if (isFishing == false)
+        {
             Vector2 input = playerInput.actions["Move"].ReadValue<Vector2>();//获取input system中move的实时值
             Vector3 move = new Vector3(input.x, 0, input.y);//设置move值
 
@@ -62,17 +73,36 @@ public class PlayerController : MonoBehaviour
 
             move.y = 0f;//不允许跳跃
 
-            hook.transform.Translate(move * Time.deltaTime * fishingSpeed);//让钩子移动
-
-            if (playerInput.actions["Move"].WasReleasedThisFrame())//当松开时
+            Vector3 playerCt = new Vector3(transform.position.x, hook.transform.position.y, transform.position.z);
+            if (Vector3.Distance(hook.transform.position, playerCt) <= 5)
             {
-                fishPt = hook.transform.position;
-                fishing.Play();
-                MoveRope(fishPt);
-                hook.SetActive(false);
-                playerInput.DeactivateInput();//禁止输入
-                touchCanvas.gameObject.SetActive(false);
+                hook.transform.Translate(move * Time.deltaTime * fishingSpeed);//让钩子移动
+                if (playerInput.actions["Move"].WasReleasedThisFrame())//当松开时
+                {
+                    fishPt = hook.transform.position;
+                    fishing.Play("FishingPole");
+                    MoveRope(fishPt);
+                    hook.SetActive(false);
+                    playerInput.DeactivateInput();//禁止输入
+                    touchCanvas.gameObject.SetActive(false);
+                    
+                }
             }
+            else
+            {
+                hook.transform.position -= (hook.transform.position - playerCt).normalized * 0.01f;
+            }
+        }
+
+        if(findFish==true)
+        {
+            fishing.Play("FindFish");
+            
+            if (fishCreated==false)
+            {
+                CreateFish();
+            }
+            findFish = false;
 
         }
     }
@@ -101,6 +131,7 @@ public class PlayerController : MonoBehaviour
         startFishing.gameObject.SetActive(true);
         playerInput.ActivateInput();//允许输入
         touchCanvas.gameObject.SetActive(true);
+        hook.SetActive(false);
     }
 
     public void MoveRope(Vector3 pt)
@@ -111,8 +142,27 @@ public class PlayerController : MonoBehaviour
         
     }
 
- 
 
-    
+    private void CreateFish()
+    {
+        GameObject fish = Instantiate(fish1Prefab, fishAttachPt.transform.position, Quaternion.identity);
+        fish.transform.parent = fishAttachPt.transform;
+        fishCreated = true;
 
+        lastBoneRb.AddForce(0, 300, 0);
+        StartCoroutine("ShowCollectPanel");
+    }
+
+    IEnumerator ShowCollectPanel()
+    {
+        yield return new WaitForSeconds(1);
+        panel.SetActive(true);
+        Destroy(currentYuQun);
+    }
+
+    public void HideCollectPanel()
+    {
+        panel.SetActive(false);
+        FinishFishing();
+    }
 }
