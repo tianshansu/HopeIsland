@@ -2497,6 +2497,7 @@ GameObject:
   - component: {fileID: 1042945416}
   - component: {fileID: 1042945420}
   - component: {fileID: 1042945421}
+  - component: {fileID: 1042945422}
   m_Layer: 0
   m_Name: Ocean
   m_TagString: Untagged
@@ -2612,8 +2613,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FishPrefab: {fileID: 4231706481044146170, guid: f7f022a22b38f3f41a99011b05c045f7, type: 3}
+  currentFishGroup: {fileID: 0}
   water: {fileID: 580601846}
   size: {x: 15, y: 5, z: 12}
+--- !u!114 &1042945422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042945412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb146758b3262594b8e47ab8f1f254d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishLib:
+  - {fileID: 3115584497108715139, guid: fe82d16b77157bb4f8140f81c1722f09, type: 3}
+  - {fileID: 4878937862350970851, guid: a4136fd6fc2958048a83d5c5efbc87d2, type: 3}
+  - {fileID: 2109202903316786754, guid: 05ecdf4b0ca082a4b8dd746b15098ef0, type: 3}
+  fish: {fileID: 0}
+  fishId: 0
 --- !u!1 &1158912251
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,14 +2993,14 @@ MonoBehaviour:
   finishFishing: {fileID: 1617624352}
   fishPt: {x: 0, y: 0, z: 0}
   lastBone: {fileID: 1235550411}
+  lastBoneRb: {fileID: 0}
   fishingPole: {fileID: 828876413}
   touchCanvas: {fileID: 262480788}
   findFish: 0
-  fish1Prefab: {fileID: 3115584497108715139, guid: fe82d16b77157bb4f8140f81c1722f09, type: 3}
   fishCreated: 0
   fishAttachPt: {fileID: 1214112637}
+  yuQun: {fileID: 0}
   panel: {fileID: 348840712}
-  currentYuQun: {fileID: 0}
 --- !u!114 &1279787839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4491,7 +4511,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u91D1\u9C7C"
+  m_Text: null
 --- !u!222 &1952773192
 CanvasRenderer:
   m_ObjectHideFlags: 0

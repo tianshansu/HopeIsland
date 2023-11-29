@@ -10,7 +10,7 @@ public class SpawnFish : MonoBehaviour
 {
 
     public GameObject FishPrefab;
-
+    public GameObject currentFishGroup;
     public GameObject water;
     public Vector3 size;
 
@@ -30,5 +30,10 @@ public class SpawnFish : MonoBehaviour
         Vector3 pos = water.transform.position + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0, Random.Range(-size.z / 2, size.z / 2));
         Instantiate(FishPrefab, pos, Quaternion.identity);
         
+    }
+
+    public void DestroyFishGroup()
+    {
+        Destroy(currentFishGroup);
     }
 }
