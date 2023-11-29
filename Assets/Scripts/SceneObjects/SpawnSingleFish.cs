@@ -14,6 +14,9 @@ public class SpawnSingleFish : MonoBehaviour
 
     public GameObject fish;
     public int fishId;
+    public FishCollectionPanel ui;
+
+   
 
     public int ChooseFish()
     {
@@ -32,14 +35,17 @@ public class SpawnSingleFish : MonoBehaviour
         {
             case 0:
                 fish = fishLib[0];
+                ui.ChangeFishName("Ω”„");
                 break;
             case 1:
                 fish = fishLib[1];
+                ui.ChangeFishName("∫”Î‡");
                 break;
             case 2:
                 fish = fishLib[2];
+                ui.ChangeFishName("¥¯”„");
                 break;
-            default: return null;
+           
         }
         return fish;
     }

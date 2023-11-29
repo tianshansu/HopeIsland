@@ -9,15 +9,13 @@ using UnityEngine.UI;
 
 public class FishCollectionPanel : MonoBehaviour
 {
-    private Text fishName;
+    public Text fishName;
 
-    private void Start()
+ 
+
+    public void ChangeFishName(string newFishName)
     {
-        fishName= GetComponent<Text>();
-    }
-
-    private void ChangeFishName(string fishName)
-    {
-
+        
+        fishName.text =  newFishName;
     }
 }

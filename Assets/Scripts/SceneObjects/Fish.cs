@@ -14,14 +14,15 @@ public class Fish : MonoBehaviour
     private float sec;
     private bool runned;
     private SpawnFish water;
-    
+
 
 
 
     private void Start()
     {
-       player=GameObject.Find("Player").GetComponent<PlayerController>();
+        player=GameObject.Find("Player").GetComponent<PlayerController>();
         water=GameObject.Find("Ocean").GetComponent<SpawnFish>();
+ 
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,7 +47,9 @@ public class Fish : MonoBehaviour
         if(player.fishCreated== false)
         {
             yield return new WaitForSeconds(sec);
+           
             player.findFish = true;
+            
         }
         
        

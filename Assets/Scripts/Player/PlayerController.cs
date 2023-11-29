@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.UI;
 
 ///<summary>
@@ -26,9 +28,11 @@ public class PlayerController : MonoBehaviour
     public GameObject lastBone;
     public Rigidbody lastBoneRb;
     public GameObject fishingPole;
-    private Animation fishing;
+    private Animation poleAnim;
+    public Animation buoy;
     private Vector3 ropeInitialPos;
     public Canvas touchCanvas;
+
     
 
     public bool findFish;
@@ -42,13 +46,15 @@ public class PlayerController : MonoBehaviour
 
     private SpawnSingleFish spawnSingleFish;
 
+    private GameObject fish;
+
 
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         lastBoneRb = lastBone.GetComponent<Rigidbody>();
-        fishing = fishingPole.GetComponent<Animation>();
+        poleAnim= fishingPole.GetComponent<Animation>();
         ropeInitialPos = lastBone.transform.localPosition;
         yuQun=GameObject.Find("Ocean").GetComponent<SpawnFish>();
         spawnSingleFish=GameObject.Find("Ocean").GetComponent<SpawnSingleFish>();
@@ -84,7 +90,7 @@ public class PlayerController : MonoBehaviour
                 if (playerInput.actions["Move"].WasReleasedThisFrame())//当松开时
                 {
                     fishPt = hook.transform.position;
-                    fishing.Play("FishingPole");
+                    poleAnim.Play("FishingPole");
                     MoveRope(fishPt);
                     hook.SetActive(false);
                     playerInput.DeactivateInput();//禁止输入
@@ -100,13 +106,23 @@ public class PlayerController : MonoBehaviour
 
         if(findFish==true)
         {
-            fishing.Play("FindFish");
-            
-            if (fishCreated==false)
+            buoy.Play();
+
+            if (Input.touchCount > 0)//如果按屏幕
             {
-                CreateFish();
+                buoy.Stop();
+
+                poleAnim.Play("FindFish");
+                if (fishCreated == false)
+                {
+                    CreateFish();
+                }
+                findFish = false;
             }
-            findFish = false;
+                
+               
+
+
 
         }
     }
@@ -149,9 +165,8 @@ public class PlayerController : MonoBehaviour
 
     public void CreateFish()
     {
-        GameObject fish = Instantiate(spawnSingleFish.GenerateFish(), fishAttachPt.transform.position, Quaternion.identity);
+        fish = Instantiate(spawnSingleFish.GenerateFish(), fishAttachPt.transform.position, Quaternion.identity);
         fish.transform.parent = fishAttachPt.transform;
-
 
         lastBoneRb.AddForce(0, 300, 0);
         StartCoroutine("ShowCollectPanel");
@@ -162,6 +177,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1);
         panel.SetActive(true);
         yuQun.DestroyFishGroup();
+        Destroy(fish);
     }
 
 
