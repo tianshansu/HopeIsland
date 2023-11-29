@@ -10,14 +10,18 @@ using UnityEngine;
 public class Fish : MonoBehaviour
 {
 
-    public PlayerController player;
+    private PlayerController player;
     private float sec;
     private bool runned;
+    private SpawnFish water;
     
+
+
 
     private void Start()
     {
        player=GameObject.Find("Player").GetComponent<PlayerController>();
+        water=GameObject.Find("Ocean").GetComponent<SpawnFish>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,7 +34,7 @@ public class Fish : MonoBehaviour
                 sec = Random.Range(3, 10);
                 StartCoroutine("WaitFor");
                 runned = true;
-                player.currentYuQun = transform.gameObject;
+                water.currentFishGroup = transform.gameObject;
             }
         }
         

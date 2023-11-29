@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public Button finishFishing;
     public Vector3 fishPt;
     public GameObject lastBone;
-    private Rigidbody lastBoneRb;
+    public Rigidbody lastBoneRb;
     public GameObject fishingPole;
     private Animation fishing;
     private Vector3 ropeInitialPos;
@@ -32,12 +32,15 @@ public class PlayerController : MonoBehaviour
     
 
     public bool findFish;
-    public GameObject fish1Prefab;
     public bool fishCreated;
     public GameObject fishAttachPt;
+    public SpawnFish yuQun;
+
 
     public GameObject panel;
-    public GameObject currentYuQun;
+
+
+    private SpawnSingleFish spawnSingleFish;
 
 
     private void Start()
@@ -47,7 +50,8 @@ public class PlayerController : MonoBehaviour
         lastBoneRb = lastBone.GetComponent<Rigidbody>();
         fishing = fishingPole.GetComponent<Animation>();
         ropeInitialPos = lastBone.transform.localPosition;
-
+        yuQun=GameObject.Find("Ocean").GetComponent<SpawnFish>();
+        spawnSingleFish=GameObject.Find("Ocean").GetComponent<SpawnSingleFish>();
        
     }
 
@@ -143,11 +147,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void CreateFish()
+    public void CreateFish()
     {
-        GameObject fish = Instantiate(fish1Prefab, fishAttachPt.transform.position, Quaternion.identity);
+        GameObject fish = Instantiate(spawnSingleFish.GenerateFish(), fishAttachPt.transform.position, Quaternion.identity);
         fish.transform.parent = fishAttachPt.transform;
-        fishCreated = true;
+
 
         lastBoneRb.AddForce(0, 300, 0);
         StartCoroutine("ShowCollectPanel");
@@ -157,12 +161,14 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         panel.SetActive(true);
-        Destroy(currentYuQun);
+        yuQun.DestroyFishGroup();
     }
+
 
     public void HideCollectPanel()
     {
         panel.SetActive(false);
         FinishFishing();
+
     }
 }
