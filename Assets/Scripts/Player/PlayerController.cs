@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
             move.y = 0f;//不允许跳跃
 
             Vector3 playerCt = new Vector3(transform.position.x, hook.transform.position.y, transform.position.z);
-            if (Vector3.Distance(hook.transform.position, playerCt) <= 5)
+            if (Vector3.Distance(hook.transform.position, playerCt) <= 7)
             {
                 hook.transform.Translate(move * Time.deltaTime * fishingSpeed);//让钩子移动
                 if (playerInput.actions["Move"].WasReleasedThisFrame())//当松开时
