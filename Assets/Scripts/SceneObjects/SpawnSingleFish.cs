@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+//sing System.Diagnostics;
+using System.Drawing;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
     ///<summary>
     ///
@@ -10,13 +12,45 @@ using UnityEngine;
 public class SpawnSingleFish : MonoBehaviour
 {
     public GameObject[] fishLib;
-    //private int[] ints = new int[10] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };//创建用于随机的数组）
 
     public GameObject fish;
     public int fishId;
     public FishCollectionPanel ui;
 
+    public GameObject water;
+    public Vector3 size;
+    public float fishGenerateNumber;
+
+    public GameObject fishPrefab;
+    private Vector3 pos;
    
+
+    private void Start()
+    {
+        
+        SpawnFishFunction();//生成鱼
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        //Gizmos.color = new Color(1, 0, 0, 0.5f);
+        Gizmos.DrawCube(water.transform.position, size);
+    }
+
+    public void SpawnFishFunction()
+    {
+        
+        for (int i = 0; i < fishGenerateNumber; i++)
+        {
+            
+            fishPrefab = GenerateFish();
+            pos = water.transform.position + new Vector3(Random.Range(-size.x / 2, size.x / 2), -2, Random.Range(-size.z / 2, size.z / 2));
+            GameObject fish= Instantiate(fishPrefab, pos, Quaternion.identity);
+            fish.name = fishPrefab.name;
+        }
+    }
+ 
+
 
     public int ChooseFish()
     {
@@ -35,20 +69,21 @@ public class SpawnSingleFish : MonoBehaviour
         {
             case 0:
                 fish = fishLib[0];
-                ui.ChangeFishName("金鱼");
+                //fish.name = "金鱼";
                 break;
             case 1:
                 fish = fishLib[1];
-                ui.ChangeFishName("河豚");
+                //ui.ChangeFishName("河豚");
                 break;
             case 2:
                 fish = fishLib[2];
-                ui.ChangeFishName("带鱼");
+                //ui.ChangeFishName("带鱼");
                 break;
            
         }
         return fish;
     }
 
+    
     
 }
