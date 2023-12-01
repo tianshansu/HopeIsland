@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     public float fishingRange;
 
-  
+    [HideInInspector]
     public GameObject hook;
 
     [HideInInspector]
@@ -32,15 +32,15 @@ public class PlayerController : MonoBehaviour
     public Button finishFishing;
     [HideInInspector]
     public Vector3 fishPt;
-    //[HideInInspector]
+    [HideInInspector]
     public GameObject lastBone;
-    //[HideInInspector]
+    [HideInInspector]
     public Rigidbody lastBoneRb;
-    //[HideInInspector]
+    [HideInInspector]
     public GameObject fishingPole;
     [HideInInspector]
     private Animation poleAnim;
-    //[HideInInspector]
+    [HideInInspector]
     public Animation buoy;
     private Vector3 ropeInitialPos;
     [HideInInspector]
@@ -51,11 +51,12 @@ public class PlayerController : MonoBehaviour
     public bool findFish;
     [HideInInspector]
     public bool fishCreated;
- 
 
 
+    private bool positionRod;
 
     private GameObject panel;
+
 
 
 
@@ -65,6 +66,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool isCatchingFish;
 
+
+    private bool canPlayStartAnim;
 
     private void Start()
     {
@@ -109,10 +112,13 @@ public class PlayerController : MonoBehaviour
                 {
                     fishPt = hook.transform.position;
                     poleAnim.Play("FishingPole");
-                    MoveRope(fishPt);
+                    canPlayStartAnim = true;
+
+
                     hook.SetActive(false);
                     playerInput.DeactivateInput();//禁止输入
                     touchCanvas.gameObject.SetActive(false);
+                    positionRod = true;//已下杆
                     
                 }
             }
@@ -127,13 +133,17 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         if (findFish == true)
         {
             
             if (currentFish != null)
             {
                 currentFish.GetComponent<Fish>().FishStickOnRod();//将碰到的鱼粘在钓鱼竿上
+                //buoy.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+                //buoy.gameObject.transform.position=new Vector3(buoy.gameObject.transform.position.x,-1,buoy.gameObject.transform.position.z) ;
                 buoy.Play();
+                
             }
 
             
@@ -141,26 +151,39 @@ public class PlayerController : MonoBehaviour
             if (Input.touchCount > 0)//如果按屏幕
             {
                 buoy.Stop();
-                //lastBone.transform.localPosition = Vector3.zero;
-                lastBoneRb.transform.localPosition= Vector3.zero;
-                poleAnim.Play("FindFish");
+                RepositionRod();
+                
                 
                 if(currentFish!=null)
                 {
                     currentFish.transform.GetChild(1).gameObject.SetActive(false);
                 }
                 
-
                 
                 if (fishCreated == false)
                 {
                     StartCoroutine("ShowCollectPanel");
+                    findFish = false;
                 }
-                findFish = false;
+                
             }
 
+        }else
+        {
+            if(positionRod==true)
+            {
+                if (Input.touchCount > 0)
+                {
+                    RepositionRod();
+                positionRod = false;
+                }
+            }
+            
+        }
 
-
+        if(canPlayStartAnim== true)
+        {
+            StartCoroutine(MoveRope(fishPt));
         }
     }
 
@@ -190,10 +213,22 @@ public class PlayerController : MonoBehaviour
         hook.SetActive(false);
     }
 
-    public void MoveRope(Vector3 pt)
+    IEnumerator MoveRope(Vector3 pt)
     {
-        lastBone.transform.position = pt;
+        yield return new WaitForSeconds(0.5f);
+        lastBone.transform.position = Vector3.Lerp(lastBone.transform.position, new Vector3(pt.x, -2, pt.z), 0.5f);
+        //lastBoneRb.MovePosition(new Vector3(pt.x, -1, pt.z));
+        //lastBone.transform.position = new Vector3(pt.x, -1, pt.z);
+        //lastBoneRb.constraints = RigidbodyConstraints.FreezePositionY;
+        canPlayStartAnim = false;
+    }
+ 
 
+
+    public void RepositionRod()
+    {
+        lastBoneRb.transform.localPosition = Vector3.zero;
+        poleAnim.Play("FindFish");
     }
 
 

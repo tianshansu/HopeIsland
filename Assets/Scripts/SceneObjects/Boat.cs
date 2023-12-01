@@ -13,8 +13,11 @@ public class Boat : MonoBehaviour
     public Button startBoat;
     public Button finishBoat;
     public Button fishing;
+    [HideInInspector]
     public Transform playerPos;
+    [HideInInspector]
     public PlayerController player;
+    [HideInInspector]
     public GameObject facingPt;
 
     private Transform maTou;

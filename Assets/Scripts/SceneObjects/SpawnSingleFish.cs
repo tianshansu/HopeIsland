@@ -13,14 +13,18 @@ public class SpawnSingleFish : MonoBehaviour
 {
     public GameObject[] fishLib;
 
+    [HideInInspector]
     public GameObject fish;
+    [HideInInspector]
     public int fishId;
+    [HideInInspector]
     public FishCollectionPanel ui;
 
     public GameObject water;
     public Vector3 size;
     public float fishGenerateNumber;
 
+    [HideInInspector]
     public GameObject fishPrefab;
     private Vector3 pos;
    

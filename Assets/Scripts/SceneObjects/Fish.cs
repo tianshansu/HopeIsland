@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -34,13 +35,22 @@ public class Fish : MonoBehaviour
         {
             if (other.gameObject.tag == "YuGan")
             {
-                //Debug.Log("Yes");
+                player.isCatchingFish = true;
                 sec = Random.Range(3, 10);
                 StartCoroutine("WaitFor");
                 player.currentFish = transform.gameObject;
+                
             }
         }
         
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag=="YuGan")
+        {
+            StopCoroutine("WaitFor");
+        }
     }
 
 
@@ -49,9 +59,9 @@ public class Fish : MonoBehaviour
         if(player.fishCreated== false)
         {
             yield return new WaitForSeconds(sec);
-           
             player.findFish = true;
-            
+
+
         }
         
        
