@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public GameObject fishingPole;
     [HideInInspector]
-    private Animation poleAnim;
+    public Animation poleAnim;
     [HideInInspector]
     public Animation buoy;
     private Vector3 ropeInitialPos;
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     public bool fishCreated;
 
 
-    private bool positionRod;
+    public bool positionRod;
 
     private GameObject panel;
 
@@ -67,7 +67,11 @@ public class PlayerController : MonoBehaviour
     public bool isCatchingFish;
 
 
-    private bool canPlayStartAnim;
+    public bool canPlayStartAnim;
+
+    //Hook
+    public HookMovement hookMovement;
+    public bool startMovingHook;
 
     private void Start()
     {
@@ -95,36 +99,6 @@ public class PlayerController : MonoBehaviour
             if (move != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(move);//看向移动方向
-            }
-        }
-        else
-        {
-            Vector2 input = playerInput.actions["Move"].ReadValue<Vector2>();//获取input system中move的实时值
-            Vector3 move = new Vector3(input.x, 0, input.y);//设置move值
-
-            move.y = 0f;//不允许跳跃
-
-            Vector3 playerCt = new Vector3(transform.position.x, hook.transform.position.y, transform.position.z);
-            if (Vector3.Distance(hook.transform.position, playerCt) <= fishingRange)
-            {
-                hook.transform.Translate(move * Time.deltaTime * fishingSpeed);//让钩子移动
-                if (playerInput.actions["Move"].WasReleasedThisFrame())//当松开时
-                {
-                    fishPt = hook.transform.position;
-                    poleAnim.Play("FishingPole");
-                    canPlayStartAnim = true;
-
-
-                    hook.SetActive(false);
-                    playerInput.DeactivateInput();//禁止输入
-                    touchCanvas.gameObject.SetActive(false);
-                    positionRod = true;//已下杆
-                    
-                }
-            }
-            else
-            {
-                hook.transform.position -= (hook.transform.position - playerCt).normalized * 0.01f;
             }
         }
 

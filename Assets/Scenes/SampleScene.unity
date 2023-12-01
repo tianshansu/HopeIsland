@@ -578,7 +578,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 246061597}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -1727,6 +1727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 813780818}
+  - component: {fileID: 813780819}
   m_Layer: 0
   m_Name: Hook
   m_TagString: Untagged
@@ -1750,6 +1751,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &813780819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813780817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f10385cb13cb88a43a6d04765c1f0bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: 40
+  radius: 6
+  playerInput: {fileID: 1279787839}
+  player: {fileID: 1279787838}
 --- !u!1 &848847444
 GameObject:
   m_ObjectHideFlags: 0
@@ -2797,7 +2814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 2
-  fishingSpeed: 3
+  fishingSpeed: 2
   fishingRange: 7
   hook: {fileID: 813780817}
   isFishing: 0
@@ -2807,12 +2824,17 @@ MonoBehaviour:
   lastBone: {fileID: 2482932369003894517}
   lastBoneRb: {fileID: 1214112639}
   fishingPole: {fileID: 1255526818}
+  poleAnim: {fileID: 0}
   buoy: {fileID: 1911954022}
   touchCanvas: {fileID: 262480788}
   findFish: 0
   fishCreated: 0
+  positionRod: 0
   currentFish: {fileID: 0}
   isCatchingFish: 0
+  canPlayStartAnim: 0
+  hookMovement: {fileID: 813780819}
+  startMovingHook: 0
 --- !u!114 &1279787839
 MonoBehaviour:
   m_ObjectHideFlags: 0
