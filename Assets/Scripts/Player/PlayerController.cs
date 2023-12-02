@@ -66,12 +66,16 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool isCatchingFish;
 
-
+    [HideInInspector]
     public bool canPlayStartAnim;
 
     //Hook
+    [HideInInspector]
     public HookMovement hookMovement;
+    [HideInInspector]
     public bool startMovingHook;
+
+    public FishingLineRenderer fishLine;
 
     private void Start()
     {
@@ -170,6 +174,7 @@ public class PlayerController : MonoBehaviour
     public void Fishing()
     {
         isFishing = true;
+        fishLine.gameObject.transform.parent.gameObject.SetActive(true);
         hook.transform.position=new Vector3(transform.position.x, hook.transform.position.y, transform.position.z);
         hook.SetActive(true);
         startFishing.gameObject.SetActive(false);
@@ -201,6 +206,7 @@ public class PlayerController : MonoBehaviour
 
     public void RepositionRod()
     {
+        //Vector3.Lerp(lastBone.transform.position,Vector3.zero,0.2f);
         lastBoneRb.transform.localPosition = Vector3.zero;
         poleAnim.Play("FindFish");
     }

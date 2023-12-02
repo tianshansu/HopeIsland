@@ -21,7 +21,11 @@ public class HookMovement : MonoBehaviour
 
     private float currentDistance = 0;
     private float currentAngle = 0;
-   
+
+    public Vector3 playerCt;
+
+
+    public FishingLineRenderer fishLine;
 
     void Update()
     {
@@ -33,7 +37,7 @@ public class HookMovement : MonoBehaviour
 
         transform.Translate(move * Time.deltaTime * player.fishingSpeed);//让钩子移动
 
-        Vector3 playerCt = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+        playerCt = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
         
 
         currentDistance = Vector3.Distance(playerCt, transform.position);
@@ -64,6 +68,9 @@ public class HookMovement : MonoBehaviour
 
         if (playerInput.actions["Move"].WasReleasedThisFrame())//当松开时
         {
+            fishLine.gameObject.transform.parent.gameObject.SetActive(false);//隐藏限制线
+
+
             player.fishPt = transform.position;
             player.poleAnim.Play("FishingPole");
             player.canPlayStartAnim = true;
@@ -71,7 +78,10 @@ public class HookMovement : MonoBehaviour
             player.touchCanvas.gameObject.SetActive(false);
             player.positionRod = true;//已下杆
             gameObject.SetActive(false);
-           
+            
+
+
+
         }
 
 

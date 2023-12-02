@@ -49,7 +49,7 @@ public class SpawnSingleFish : MonoBehaviour
         {
             
             fishPrefab = GenerateFish();
-            pos = water.transform.position + new Vector3(Random.Range(-size.x / 2, size.x / 2), -2, Random.Range(-size.z / 2, size.z / 2));
+            pos = water.transform.position + new Vector3(Random.Range(-size.x / 2, size.x / 2), -1.5f, Random.Range(-size.z / 2, size.z / 2));
             GameObject fish= Instantiate(fishPrefab, pos, Quaternion.identity);
             fish.name = fishPrefab.name;
         }
