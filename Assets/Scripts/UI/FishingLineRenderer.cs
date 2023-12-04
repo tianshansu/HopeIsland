@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 
     ///<summary>
@@ -46,16 +47,15 @@ public class FishingLineRenderer : MonoBehaviour
     void Update()
     {
         
-        
         Vector3 direction1 = Quaternion.Euler(0, hook.angle, 0) * player.transform.forward;
         Vector3 direction2= Quaternion.Euler(0, -hook.angle, 0) * player.transform.forward;
         Vector3 startPt1 = new Vector3(player.transform.position.x, -1.5f, player.transform.position.z);
 
         // Calculate the end point of the line
-        Vector3 endPoint1 = player.gameObject.transform.position + direction1 * (hook.radius-1);
+        Vector3 endPoint1 = player.gameObject.transform.position + direction1 * (hook.radius);
         Vector3 endPt1 = new Vector3(endPoint1.x, -1.5f, endPoint1.z);
 
-        Vector3 endPoint2 = player.gameObject.transform.position + direction2 * (hook.radius-1);
+        Vector3 endPoint2 = player.gameObject.transform.position + direction2 * (hook.radius);
         Vector3 endPt2 = new Vector3(endPoint2.x, -1.5f, endPoint2.z);
 
 
@@ -73,23 +73,38 @@ public class FishingLineRenderer : MonoBehaviour
                     lineRenderer.SetPosition(1, endPt2);
                     break;
                 }
-            case 2:
-                {
-                    Vector3[] linePositions = new Vector3[segments + 1];
+            //case 2:
+            //    {
+            //        //Vector3[] linePositions = new Vector3[segments + 1];
 
-                    for (int i = 0; i <= segments; i++)
-                    {
-                        float angle = Mathf.Lerp(-90f, 90f, i / (float)segments);
-                        float x = Mathf.Cos(Mathf.Deg2Rad * angle);
-                        float z = Mathf.Sin(Mathf.Deg2Rad * angle);
+            //        //for (int i = 0; i <= segments; i++)
+            //        //{
+            //        //    float angle = Mathf.Lerp(-90f, 90f, i / (float)segments);
+            //        //    float x = Mathf.Cos(Mathf.Deg2Rad * angle);
+            //        //    float z = Mathf.Sin(Mathf.Deg2Rad * angle);
 
-                        linePositions[i] = Vector3.Lerp(endPt1, endPt2, 0.5f) + new Vector3(x, 0f, z) * Vector3.Distance(endPt1, endPt2) * 0.5f;
-                    }
+            //        //    linePositions[i] = Vector3.Lerp(endPt1, endPt2, 0.5f) + new Vector3(x, 0f, z) * Vector3.Distance(endPt1, endPt2) * 0.5f;
+            //        //}
 
-                    lineRenderer.positionCount = segments + 1;
-                    lineRenderer.SetPositions(linePositions);
-                    break;
-                }
+            //        Vector3[] linePositions = new Vector3[segments + 1];
+
+            //        Vector3 direction = (startPt1 - endPt1).normalized;
+            //        Quaternion rotation = Quaternion.LookRotation(direction);
+
+            //        for (int i = 0; i <= segments; i++)
+            //        {
+            //            float angle = Mathf.Lerp(-120f, 60f, i / (float)segments);
+            //            float x = Mathf.Cos(Mathf.Deg2Rad * angle);
+            //            float z = Mathf.Sin(Mathf.Deg2Rad * angle);
+
+            //            Vector3 offset = rotation * new Vector3(x, 0f, z);
+            //            linePositions[i] = Vector3.Lerp(endPt2, endPt1, 0.5f) + offset * Vector3.Distance(endPt2, endPt1) * 0.5f;
+            //        }
+
+            //        lineRenderer.positionCount = segments + 1;
+            //        lineRenderer.SetPositions(linePositions);
+            //        break;
+            //    }
         }
 
 
