@@ -24,7 +24,7 @@ public class FishingLineRenderer : MonoBehaviour
     public Color lineColor;
 
     [HideInInspector]
-    private int segments = 40; // Number of line segments in the circle
+    //private int segments = 40; // Number of line segments in the circle
 
 
 

@@ -18,6 +18,7 @@ public class Fish : MonoBehaviour
 
     private Rigidbody rg;
 
+    private Animator fishAnimator;
   
 
 
@@ -25,6 +26,7 @@ public class Fish : MonoBehaviour
     {
         joint= GetComponent<FixedJoint>();
         rg= gameObject.GetComponent<Rigidbody>();
+        fishAnimator = GetComponent<Animator>();
         
     }
 
@@ -60,7 +62,7 @@ public class Fish : MonoBehaviour
         {
             yield return new WaitForSeconds(sec);
             player.findFish = true;
-
+            //fishAnimator.SetBool("Jumping", true);
 
         }
         
