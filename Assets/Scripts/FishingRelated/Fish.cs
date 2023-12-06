@@ -26,7 +26,7 @@ public class Fish : MonoBehaviour
     {
         joint= GetComponent<FixedJoint>();
         rg= gameObject.GetComponent<Rigidbody>();
-        fishAnimator = GetComponent<Animator>();
+        fishAnimator =transform.GetChild(1).gameObject.GetComponent<Animator>();
         
     }
 
@@ -84,5 +84,6 @@ public class Fish : MonoBehaviour
         ui.ChangeFishName(gameObject.name);
     }
 
-  
+   
+
 }

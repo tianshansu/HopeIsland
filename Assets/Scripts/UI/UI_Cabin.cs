@@ -6,12 +6,11 @@ using UnityEngine;
     ///
     ///</summary>
 
-public class Cabin : MonoBehaviour
+public class UI_Cabin : MonoBehaviour
 {
     public GameObject boat;
-
     private void Start()
     {
-        gameObject.transform.parent=boat.transform;
+        gameObject.transform.SetParent(boat.transform);
     }
 }
