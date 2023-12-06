@@ -8,9 +8,15 @@ using UnityEngine;
 
 public class UI_Cabin : MonoBehaviour
 {
-    public GameObject boat;
+    //public GameObject boat;
     private void Start()
     {
-        gameObject.transform.SetParent(boat.transform);
+        //gameObject.transform.SetParent(boat.transform);
+    }
+
+    void LateUpdate()
+    {
+        transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward,
+                          Camera.main.transform.rotation * Vector3.up);
     }
 }

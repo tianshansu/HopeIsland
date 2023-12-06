@@ -69,12 +69,18 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool canPlayStartAnim;
 
+    [HideInInspector]
+    public Boat boat;
+
+    [HideInInspector]
+    public bool canOpenCabin;
+
     //Hook
     [HideInInspector]
     public HookMovement hookMovement;
     [HideInInspector]
     public bool startMovingHook;
-
+    [HideInInspector]
     public FishingLineRenderer fishLine;
 
     private void Start()
@@ -106,11 +112,37 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-       
+        if (canOpenCabin == true)
+        {
+            if (UnityEngine.Input.touchCount > 0)
+            {
+                UnityEngine.Touch touch = Input.GetTouch(0);
+
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+
+                    if (hit.collider.CompareTag("Boat"))
+                    {
+                        boat.OpenCabinUI();
+
+                    }
+                    else
+                    {
+                        boat.CloseCabinUI();
+                    }
+                }
+            }
+
+        }
+
     }
 
     private void FixedUpdate()
     {
+        
+        
         
         if (findFish == true)
         {
@@ -130,11 +162,12 @@ public class PlayerController : MonoBehaviour
             {
                 buoy.Stop();
                 RepositionRod();
+
                 
-                
-                if(currentFish!=null)
+                if (currentFish!=null)
                 {
-                    currentFish.transform.GetChild(1).gameObject.SetActive(false);
+                    currentFish.transform.GetChild(1).gameObject.SetActive(false);//把阴影鱼隐藏
+                    currentFish.transform.GetChild(0).gameObject.SetActive(true);//把彩色鱼显示
                 }
                 
                 
@@ -179,6 +212,7 @@ public class PlayerController : MonoBehaviour
         hook.SetActive(true);
         startFishing.gameObject.SetActive(false);
         finishFishing.gameObject.SetActive(true);
+        canOpenCabin = false;
     }
 
     public void FinishFishing()
@@ -190,6 +224,7 @@ public class PlayerController : MonoBehaviour
         playerInput.ActivateInput();//允许输入
         touchCanvas.gameObject.SetActive(true);
         hook.SetActive(false);
+        canOpenCabin = true;
     }
 
     IEnumerator MoveRope(Vector3 pt)

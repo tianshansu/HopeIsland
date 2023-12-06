@@ -1383,7 +1383,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1411,7 +1411,6 @@ RectTransform:
   - {fileID: 1603350661}
   - {fileID: 1617624351}
   - {fileID: 348840713}
-  - {fileID: 1567847085}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2574,6 +2573,7 @@ MonoBehaviour:
   - {fileID: 4231706481044146170, guid: f7f022a22b38f3f41a99011b05c045f7, type: 3}
   - {fileID: 4231706481044146170, guid: c5ffb58e9ceb0b941a3b96f6f1995f3a, type: 3}
   - {fileID: 4231706481044146170, guid: 4ffbb816065d76340afbb1186e6e2a6d, type: 3}
+  - {fileID: 4231706481044146170, guid: d039bf5af6fe9644cb25605e509dfff3, type: 3}
   fish: {fileID: 0}
   fishId: 0
   ui: {fileID: 348840716}
@@ -2633,7 +2633,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158912251}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.86, y: -0.77, z: -0.31}
+  m_LocalPosition: {x: 12.64, y: -0.77, z: -0.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2641,6 +2641,7 @@ Transform:
   - {fileID: 524449915}
   - {fileID: 66398462}
   - {fileID: 824928780}
+  - {fileID: 1827299548}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2655,8 +2656,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.256381, y: 1.285689, z: 1.5152392}
-  m_Center: {x: 1.0015035, y: 0.14284468, z: 0.07410228}
+  m_Size: {x: 3.18126, y: 1.285689, z: 1.5152392}
+  m_Center: {x: 0.94906664, y: 0.14284468, z: 0.07410228}
 --- !u!114 &1158912254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2675,6 +2676,7 @@ MonoBehaviour:
   playerPos: {fileID: 1279787837}
   player: {fileID: 1279787838}
   facingPt: {fileID: 66398461}
+  cabinCanvas: {fileID: 1827299547}
 --- !u!1 &1197169726
 GameObject:
   m_ObjectHideFlags: 0
@@ -3098,6 +3100,8 @@ MonoBehaviour:
   currentFish: {fileID: 0}
   isCatchingFish: 0
   canPlayStartAnim: 0
+  boat: {fileID: 1158912254}
+  canOpenCabin: 0
   hookMovement: {fileID: 813780819}
   startMovingHook: 0
   fishLine: {fileID: 411444369}
@@ -3367,18 +3371,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567847084}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 481313922}
-  m_Father: {fileID: 511678871}
-  m_RootOrder: 5
+  m_Father: {fileID: 1827299548}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 33.9}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1567847086
@@ -3475,7 +3479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9cd929831056594ebb924d4352c5290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boat: {fileID: 1158912251}
 --- !u!1 &1593098561
 GameObject:
   m_ObjectHideFlags: 0
@@ -4014,6 +4017,107 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &1827299544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1827299548}
+  - component: {fileID: 1827299547}
+  - component: {fileID: 1827299546}
+  - component: {fileID: 1827299545}
+  m_Layer: 5
+  m_Name: FacingCameraCanvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1827299545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827299544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1827299546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827299544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
+--- !u!223 &1827299547
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827299544}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 963194227}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &1827299548
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827299544}
+  m_LocalRotation: {x: 0.34903002, y: -0, z: -0, w: 0.9371116}
+  m_LocalPosition: {x: 0, y: 0, z: -1.58}
+  m_LocalScale: {x: 0.08018754, y: 0.08018754, z: 0.08018754}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1567847085}
+  m_Father: {fileID: 1158912252}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1.12}
+  m_SizeDelta: {x: 2560.0002, y: 1440}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1830148991
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,6 +22,15 @@ public class Boat : MonoBehaviour
 
     private Transform maTou;
 
+    public Canvas cabinCanvas;
+
+
+    private void Start()
+    {
+        
+    }
+
+
 
     public void OnTriggerEnter(Collider other)
     {
@@ -38,6 +47,7 @@ public class Boat : MonoBehaviour
         startBoat.gameObject.SetActive(false);
         fishing.gameObject.SetActive(true);
         transform.parent=playerPos.transform;
+        player.canOpenCabin=true;
     }
 
 
@@ -47,9 +57,17 @@ public class Boat : MonoBehaviour
         player.MoveToNewPlace(maTou.transform.position);
         finishBoat.gameObject.SetActive(false);
         fishing.gameObject.SetActive(false);
-
+        player.canOpenCabin= false;
     }
 
 
+    public void OpenCabinUI()
+    {
+        cabinCanvas.gameObject.SetActive(true);
+    }
 
+    public void CloseCabinUI()
+    {
+        cabinCanvas.gameObject.SetActive(false);
+    }
 }

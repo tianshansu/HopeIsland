@@ -60,9 +60,10 @@ public class SpawnSingleFish : MonoBehaviour
     public int ChooseFish()
     {
         int num = Random.Range(0, 9);
-        if (num < 5) { return 0; }else
-        if(4<num && num<8) { return 1; }else
-        if (num > 7) { return 2; }
+        if (num < 4) { return 0; }else
+        if(3<num && num<5) { return 1; }else
+        if (num > 4 && num<6) { return 2; }else
+        if(num > 5 && num<10) { return 3; }
         return -1;
     }
 
@@ -83,6 +84,9 @@ public class SpawnSingleFish : MonoBehaviour
             case 2:
                 fish = fishLib[2];
                 //ui.ChangeFishName("Дјгу");
+                break;
+            case 3:
+                fish = fishLib[3];
                 break;
            
         }
