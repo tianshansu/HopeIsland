@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.InputSystem;
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
     public Canvas touchCanvas;
 
 
+
     [HideInInspector]
     public bool findFish;
     [HideInInspector]
@@ -83,15 +85,18 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public FishingLineRenderer fishLine;
 
+
+    public FishBasket fishBasket;
+
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         //lastBoneRb = lastBone.GetComponent<Rigidbody>();
-        poleAnim= fishingPole.GetComponent<Animation>();
+        poleAnim = fishingPole.GetComponent<Animation>();
         ropeInitialPos = lastBone.transform.localPosition;
         panel = GameObject.Find("InGameCanvas").transform.Find("P_FindFish").gameObject;
-       
+
 
 
     }
@@ -128,10 +133,7 @@ public class PlayerController : MonoBehaviour
                         boat.OpenCabinUI();
 
                     }
-                    else
-                    {
-                        boat.CloseCabinUI();
-                    }
+
                 }
             }
 
@@ -141,58 +143,59 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        
-        
+
+
+
         if (findFish == true)
         {
-            
+
             if (currentFish != null)
             {
                 currentFish.GetComponent<Fish>().FishStickOnRod();//将碰到的鱼粘在钓鱼竿上
                 //buoy.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
                 //buoy.gameObject.transform.position=new Vector3(buoy.gameObject.transform.position.x,-1,buoy.gameObject.transform.position.z) ;
                 buoy.Play();
-                
+
             }
 
-            
+
 
             if (Input.touchCount > 0)//如果按屏幕
             {
                 buoy.Stop();
                 RepositionRod();
 
-                
-                if (currentFish!=null)
+
+                if (currentFish != null)
                 {
                     currentFish.transform.GetChild(1).gameObject.SetActive(false);//把阴影鱼隐藏
                     currentFish.transform.GetChild(0).gameObject.SetActive(true);//把彩色鱼显示
                 }
-                
-                
+
+
                 if (fishCreated == false)
                 {
                     StartCoroutine("ShowCollectPanel");
                     findFish = false;
                 }
-                
+
             }
 
-        }else
+        }
+        else
         {
-            if(positionRod==true)
+            if (positionRod == true)
             {
                 if (Input.touchCount > 0)
                 {
                     RepositionRod();
-                positionRod = false;
+                    positionRod = false;
                 }
             }
-            
+
         }
 
-        if(canPlayStartAnim== true)
+        if (canPlayStartAnim == true)
         {
             StartCoroutine(MoveRope(fishPt));
         }
@@ -200,7 +203,7 @@ public class PlayerController : MonoBehaviour
 
     public void MoveToNewPlace(Vector3 pos)
     {
-        gameObject.transform.position = new Vector3(pos.x,transform.position.y,pos.z);
+        gameObject.transform.position = new Vector3(pos.x, transform.position.y, pos.z);
 
     }
 
@@ -208,7 +211,7 @@ public class PlayerController : MonoBehaviour
     {
         isFishing = true;
         fishLine.gameObject.transform.parent.gameObject.SetActive(true);
-        hook.transform.position=new Vector3(transform.position.x, hook.transform.position.y, transform.position.z);
+        hook.transform.position = new Vector3(transform.position.x, hook.transform.position.y, transform.position.z);
         hook.SetActive(true);
         startFishing.gameObject.SetActive(false);
         finishFishing.gameObject.SetActive(true);
@@ -224,7 +227,12 @@ public class PlayerController : MonoBehaviour
         playerInput.ActivateInput();//允许输入
         touchCanvas.gameObject.SetActive(true);
         hook.SetActive(false);
-        canOpenCabin = true;
+        canOpenCabin = true;//可以打开船舱
+
+        PutFishIntoBasket(currentFish.gameObject.name);//将当前鱼名字传进去，用于往鱼筐里加鱼
+        //Debug.Log(fishBasket.currentFishBasket["qingYu"]);
+
+        Destroy(currentFish);
     }
 
     IEnumerator MoveRope(Vector3 pt)
@@ -236,7 +244,7 @@ public class PlayerController : MonoBehaviour
         //lastBoneRb.constraints = RigidbodyConstraints.FreezePositionY;
         canPlayStartAnim = false;
     }
- 
+
 
 
     public void RepositionRod()
@@ -251,8 +259,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         panel.SetActive(true);
-        
-        Destroy(currentFish);
+
     }
 
 
@@ -262,5 +269,34 @@ public class PlayerController : MonoBehaviour
         FinishFishing();
         isCatchingFish = false;
 
+    }
+
+    private void PutFishIntoBasket(string name)
+    {
+        switch (name)
+        {
+            case "青鱼":
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "qingYu", 1);
+                break;
+            case "金枪鱼":
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "jinQiangYu", 1);
+                break;
+            case "鳕鱼":
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "xueYu", 1);
+                break;
+            case "三文鱼":
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "sanWenYu", 1);
+                break;
+        }
+    }
+
+    static void IncreaseDictionaryValue(Dictionary<string, int> dictionary, string key, int increment)
+    {
+        // 检查这个类别是否存在
+        if (dictionary.ContainsKey(key))
+        {
+            // Increase the value associated with the key
+            dictionary[key] += increment;
+        }
     }
 }

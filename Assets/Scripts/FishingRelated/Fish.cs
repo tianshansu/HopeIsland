@@ -19,7 +19,6 @@ public class Fish : MonoBehaviour
     private Rigidbody rg;
 
     private Animator fishAnimator;
-  
 
 
     private void Start()
@@ -27,7 +26,7 @@ public class Fish : MonoBehaviour
         joint= GetComponent<FixedJoint>();
         rg= gameObject.GetComponent<Rigidbody>();
         fishAnimator = transform.GetChild(1).GetComponent<Animator>();
-        
+    
     }
 
     private void OnTriggerEnter(Collider other)
@@ -72,7 +71,7 @@ public class Fish : MonoBehaviour
     public void FishStickOnRod()
     {
         
-        transform.position=player.lastBone.transform.position;
+        transform.position=new Vector3(player.lastBone.transform.position.x, player.lastBone.transform.position.y-0.6f, player.lastBone.transform.position.z);
         transform.parent = player.lastBone.transform;
         ChangeUIName();
 
