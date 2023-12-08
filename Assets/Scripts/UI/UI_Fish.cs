@@ -21,7 +21,12 @@ public class UI_Fish : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private Vector2 fishInitialPos;
 
 
-    public int collisionCount = 0;
+    private int overlappingCount = 0;
+
+    private bool canCheck;
+
+
+    List<RectTransform> allRect = new List<RectTransform>();
 
     private void Start()
     {
@@ -52,7 +57,13 @@ public class UI_Fish : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private void Update()
     {
         // Check for overlaps at the start (you may want to do this continuously in Update)
-        //CheckForOverlaps();
+
+        if(canCheck)
+        {
+            CheckForOverlaps();
+        }
+            
+
 
         if (isPressed)
         {
@@ -65,13 +76,17 @@ public class UI_Fish : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             ResetPos();
         }
+
+        Debug.Log(overlappingCount);
+        
     }
 
     public void OnPointerDown(PointerEventData eventData)//当被手指按下时
     {
         // Finger is pressing on the image
         isPressed = true;
-        Debug.Log(collisionCount);
+        ClearAll();
+
     }
 
     public void OnPointerUp(PointerEventData eventData)//当手指离开时
@@ -80,12 +95,18 @@ public class UI_Fish : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isPressed = false;
         //Debug.Log("Finger Up from Image");
 
+        canCheck = true;
 
 
-        if(collisionCount== fishOccupyGrids(fishSizeType))
+        if (overlappingCount == fishOccupyGrids(fishSizeType))//如果位置合适
         {
-            gameObject.transform.position=Input.GetTouch(0).position;
-        }else
+            gameObject.transform.position = Input.GetTouch(0).position;
+            gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;//定住
+            ClearAll();
+            canCheck= false;
+
+        }
+        else
         {
             ResetPos();
         }
@@ -94,36 +115,44 @@ public class UI_Fish : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void ResetPos()
     {
         gameObject.transform.position = new Vector3(fishInitialPos.x, fishInitialPos.y, 0);
+        ClearAll();
     }
 
     private RectTransform currentRectTransform;
 
-   
 
-    //private void CheckForOverlaps()
-    //{
-    //    // Get all UI objects with RectTransform components in the Canvas
-    //    RectTransform[] allRectTransforms = FindObjectsOfType<RectTransform>();
 
-    //    // Counter for overlapping UI elements
-    //    int overlappingCount = 0;
+    private void CheckForOverlaps()
+    {
+        // Get all UI objects with RectTransform components in the Canvas
+        RectTransform[] allRectTransforms = FindObjectsOfType<RectTransform>();
 
-    //    foreach (RectTransform otherRectTransform in allRectTransforms)
-    //    {
-    //        // Skip the current RectTransform
-    //        if (otherRectTransform == currentRectTransform)
-    //            continue;
 
-    //        // Check for overlap using Rect.Overlap method
-    //        if (Rect.Overlaps(currentRectTransform.rect, otherRectTransform.rect))
-    //        {
-    //            // Overlap detected
-    //            overlappingCount++;
-    //        }
-    //    }
+        foreach (RectTransform otherRectTransform in allRectTransforms)
+        {
+            
+            // Skip the current RectTransform
+            if (otherRectTransform == currentRectTransform)
+                continue;
 
-    //    // Print or use the overlappingCount as needed
-    //    Debug.Log("Overlapping UI elements: " + overlappingCount);
-    //}
+            // Check if the other UI element has the specified tag
+            if (otherRectTransform.CompareTag("Grid")&& allRect.Contains(otherRectTransform)==false)//如果当前tag为grid，且这个当前的rectTrans不在已经碰到的列表中，就可以下一步）
+            {
+                // Check for overlap using RectTransformUtility
+                if (RectTransformUtility.RectangleContainsScreenPoint(otherRectTransform, RectTransformUtility.WorldToScreenPoint(null, currentRectTransform.position)))
+                {
+                    allRect.Add(otherRectTransform);
+                    // Overlap detected
+                    overlappingCount++;
+                }
+               
+            }
+        }
+    }
 
+    private void ClearAll()
+    {
+        allRect.Clear();
+        overlappingCount = 0;
+    }
 }

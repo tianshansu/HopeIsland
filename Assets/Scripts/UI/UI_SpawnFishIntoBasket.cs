@@ -59,6 +59,13 @@ public class UI_SpawnFishIntoBasket : MonoBehaviour
                 trans.sizeDelta = new Vector2(grid.cellSizeA,newHeight);
                 return image;
                 
+            case 1:
+                ratio = image.sprite.bounds.size.x / image.sprite.bounds.size.y;
+                newHeight = grid.cellSizeA / ratio;
+
+                trans.sizeDelta = new Vector2(grid.cellSizeA*2, newHeight*2);
+                return image;
+
             default:
                 return image;
         }

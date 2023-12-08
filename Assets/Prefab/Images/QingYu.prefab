@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2853274ecbd12a4419046b25f757a9be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishSizeType: 0
+  fishSizeType: 1
   fishOccupies: 0
 --- !u!222 &8034471392620681848
 CanvasRenderer:
