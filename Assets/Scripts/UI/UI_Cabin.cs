@@ -12,9 +12,10 @@ public class UI_Cabin : MonoBehaviour
     public Canvas UICabinMainStorage;
     public Canvas inputStick;
 
+
     private void Start()
     {
-        //gameObject.transform.SetParent(boat.transform);
+       
     }
 
     void LateUpdate()
@@ -28,6 +29,7 @@ public class UI_Cabin : MonoBehaviour
         inputStick.gameObject.SetActive(false);
         UICabinMainStorage.gameObject.SetActive(true);
         gameObject.transform.parent.gameObject.SetActive(false);
+
     }
 
     

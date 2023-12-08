@@ -22,6 +22,9 @@ public class UI_CabinGridGenerate : MonoBehaviour
     public Canvas inputStick;
  
 
+    [HideInInspector]
+    public float cellSizeA;
+
     void Awake()
     {
         rectTrans = GetComponent<RectTransform>();
@@ -35,9 +38,9 @@ public class UI_CabinGridGenerate : MonoBehaviour
         
         int totalGrids = gridsNumber * gridsNumber;//计算一共要生成多少个grid
 
-        float cellSize = (rectTrans.rect.width - (gridsNumber + 1) * spacing)/ gridsNumber;//计算出合理的一个cell的大小
+        cellSizeA = (rectTrans.rect.width - (gridsNumber + 1) * spacing)/ gridsNumber;//计算出合理的一个cell的大小
 
-        gridLayout.cellSize = new Vector2(cellSize,cellSize);//设置cellSize为新算出来的
+        gridLayout.cellSize = new Vector2(cellSizeA,cellSizeA);//设置cellSize为新算出来的
 
         gridLayout.spacing = new Vector2(spacing,spacing);
 
@@ -62,5 +65,6 @@ public class UI_CabinGridGenerate : MonoBehaviour
     {
         inputStick.gameObject.SetActive(true);
         UICabinMainStorage.gameObject.SetActive(false);
+       
     }
 }
