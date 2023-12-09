@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-    ///<summary>
-    ///
-    ///</summary>
+///<summary>
+///
+///</summary>
 
 public class UI_Cabin : MonoBehaviour
 {
@@ -26,9 +27,10 @@ public class UI_Cabin : MonoBehaviour
 
     public void OpenCabinBody()//´ò¿ª´¬²Õ
     {
-        inputStick.gameObject.SetActive(false);
-        UICabinMainStorage.gameObject.SetActive(true);
-        gameObject.transform.parent.gameObject.SetActive(false);
+        //inputStick.gameObject.SetActive(false);
+        //UICabinMainStorage.gameObject.SetActive(true);
+        //gameObject.transform.parent.gameObject.SetActive(false);
+        SceneManager.LoadScene("FishBaskets");
 
     }
 

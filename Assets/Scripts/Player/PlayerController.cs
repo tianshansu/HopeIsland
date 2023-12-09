@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     public FishingLineRenderer fishLine;
 
 
-    public FishBasket fishBasket;
+    //public FishBasket fishBasket;
 
     private void Start()
     {
@@ -276,16 +276,16 @@ public class PlayerController : MonoBehaviour
         switch (name)
         {
             case "青鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "qingYu", 1);
+                IncreaseDictionaryValue(FishBasket.currentFishBasket, "qingYu", 1);
                 break;
             case "金枪鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "jinQiangYu", 1);
+                IncreaseDictionaryValue(FishBasket.currentFishBasket, "jinQiangYu", 1);
                 break;
             case "鳕鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "xueYu", 1);
+                IncreaseDictionaryValue(FishBasket.currentFishBasket, "xueYu", 1);
                 break;
             case "三文鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "sanWenYu", 1);
+                IncreaseDictionaryValue(FishBasket.currentFishBasket, "sanWenYu", 1);
                 break;
         }
     }

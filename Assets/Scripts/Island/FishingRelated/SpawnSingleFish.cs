@@ -60,10 +60,13 @@ public class SpawnSingleFish : MonoBehaviour
     public int ChooseFish()
     {
         int num = Random.Range(0, 9);
-        if (num < 4) { return 0; }else
-        if(3<num && num<5) { return 1; }else
-        if (num > 4 && num<6) { return 2; }else
-        if(num > 5 && num<10) { return 3; }
+        if (num < 4) { return 0; }
+        else
+        if (3 < num && num < 5) { return 1; }
+        else
+        if (num > 4 && num < 6) { return 2; }
+        else
+        if (num > 5 && num < 10) { return 3; }
         return -1;
     }
 
@@ -75,15 +78,15 @@ public class SpawnSingleFish : MonoBehaviour
         {
             case 0:
                 fish = fishLib[0];
-                //fish.name = "金鱼";
+                
                 break;
             case 1:
                 fish = fishLib[1];
-                //ui.ChangeFishName("河豚");
+                
                 break;
             case 2:
-                fish = fishLib[2];
-                //ui.ChangeFishName("带鱼");
+                fish = fishLib[2];//青鱼
+                
                 break;
             case 3:
                 fish = fishLib[3];

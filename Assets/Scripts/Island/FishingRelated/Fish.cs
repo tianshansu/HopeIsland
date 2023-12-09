@@ -11,23 +11,29 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
-
+    //µˆ”„œ‡πÿ
     private PlayerController player;
     private float sec;
     private FixedJoint joint;
-
     private Rigidbody rg;
-
     private Animator fishAnimator;
 
+
+    
 
     private void Start()
     {
         joint= GetComponent<FixedJoint>();
         rg= gameObject.GetComponent<Rigidbody>();
         fishAnimator = transform.GetChild(1).GetComponent<Animator>();
-    
+
+
+        
+
     }
+
+
+    
 
     private void OnTriggerEnter(Collider other)
     {

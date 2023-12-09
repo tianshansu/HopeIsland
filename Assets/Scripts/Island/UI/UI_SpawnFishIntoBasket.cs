@@ -24,7 +24,7 @@ public class UI_SpawnFishIntoBasket : MonoBehaviour
 
     private void Start()
     {
-        SpawnFish(qingYu, currentFishCollected.currentFishBasket["qingYu"]);
+        //SpawnFish(qingYu, currentFishCollected.currentFishBasket["qingYu"]);
 
     }
 

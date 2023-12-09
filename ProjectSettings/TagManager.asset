@@ -10,6 +10,7 @@ TagManager:
   - UI
   - FishImg
   - Grid
+  - FishModel
   layers:
   - Default
   - TransparentFX
