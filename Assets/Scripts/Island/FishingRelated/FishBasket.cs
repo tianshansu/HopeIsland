@@ -11,13 +11,13 @@ public class FishBasket : MonoBehaviour
 {
     //public FishBasket Instance;
 
-    public static Dictionary<string,int> currentFishBasket = new Dictionary<string,int>();//创建dict,做成instance
+    public Dictionary<string,int> currentFishBasket = new Dictionary<string,int>();//创建dict,做成instance
 
 
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+    //void Awake()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     private void Start()//创建内容，值都为0
     {

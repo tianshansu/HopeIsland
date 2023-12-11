@@ -61,13 +61,4 @@ public class Boat : MonoBehaviour
     }
 
 
-    public void OpenCabinUI()
-    {
-        cabinCanvas.gameObject.SetActive(true);
-    }
-
-    public void CloseCabinUI()
-    {
-        cabinCanvas.gameObject.SetActive(false);
-    }
 }

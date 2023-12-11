@@ -18,6 +18,8 @@ public class FishIntoBasket : MonoBehaviour
 
     GameObject selectedObject;
 
+   
+
     private void Start()
     {
         fishOccupies = fishOccupyGrids(fishSizeType);//返回这条鱼需要占几格   
@@ -52,10 +54,12 @@ public class FishIntoBasket : MonoBehaviour
                 if (selectedObject != null)//如果当前有选中的物体
                 {
                     // Move your object
-                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane));//将touchPos转变为世界坐标
+                    float zDepth = Camera.main.WorldToScreenPoint(selectedObject.transform.position).z;
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, zDepth));//确保高度要统一，否则移动不准确
 
-                    float desiredHeight = 1.0f; // Set this to the desired height
-                    touchPosition.y = desiredHeight;
+
+                    //float desiredHeight = 9f; // Set this to the desired height
+                    //touchPosition.y = desiredHeight;
 
                     selectedObject.transform.position = touchPosition;
 

@@ -10,29 +10,34 @@ using UnityEngine.SceneManagement;
 public class UI_Cabin : MonoBehaviour
 {
     //public GameObject boat;
-    public Canvas UICabinMainStorage;
-    public Canvas inputStick;
+    //public Canvas UICabinMainStorage;
+    //public Canvas inputStick;
 
+    //public int closeTime;
 
-    private void Start()
-    {
-       
-    }
+    //private void Start()
+    //{
+        
+    //}
 
     void LateUpdate()
     {
-        transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward,
+        if(Camera.main!= null)
+        {
+            transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward,
                           Camera.main.transform.rotation * Vector3.up);
+        }
+        
     }
 
-    public void OpenCabinBody()//打开船舱
-    {
-        //inputStick.gameObject.SetActive(false);
-        //UICabinMainStorage.gameObject.SetActive(true);
-        //gameObject.transform.parent.gameObject.SetActive(false);
-        SceneManager.LoadScene("FishBaskets");
+    //public void OpenCabinBody()//打开船舱
+    //{
+    //    //inputStick.gameObject.SetActive(false);
+    //    //UICabinMainStorage.gameObject.SetActive(true);
+    //    //gameObject.transform.parent.gameObject.SetActive(false);
+    //    SceneManager.LoadScene("FishBaskets");
 
-    }
+    //}
 
     
 }

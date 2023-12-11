@@ -86,7 +86,9 @@ public class PlayerController : MonoBehaviour
     public FishingLineRenderer fishLine;
 
 
-    //public FishBasket fishBasket;
+    public FishBasket fishBasket;
+
+    private bool isPut;//检测是否已经把鱼放进虚拟basket了
 
     private void Start()
     {
@@ -117,34 +119,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (canOpenCabin == true)
-        {
-            if (UnityEngine.Input.touchCount > 0)
-            {
-                UnityEngine.Touch touch = Input.GetTouch(0);
-
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-
-                if (Physics.Raycast(ray, out RaycastHit hit))
-                {
-
-                    if (hit.collider.CompareTag("Boat"))
-                    {
-                        boat.OpenCabinUI();
-
-                    }
-
-                }
-            }
-
-        }
-
+        
     }
 
     private void FixedUpdate()
     {
-
-
 
         if (findFish == true)
         {
@@ -155,6 +134,12 @@ public class PlayerController : MonoBehaviour
                 //buoy.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
                 //buoy.gameObject.transform.position=new Vector3(buoy.gameObject.transform.position.x,-1,buoy.gameObject.transform.position.z) ;
                 buoy.Play();
+
+                if(isPut== false)
+                {
+                    PutFishIntoBasket(currentFish.gameObject.name);//将当前鱼名字传进去，用于往鱼筐里加鱼
+                }
+                
 
             }
 
@@ -188,8 +173,12 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.touchCount > 0)
                 {
+                    buoy.Stop();
                     RepositionRod();
+                    currentFish= null;
+                    isCatchingFish= false;
                     positionRod = false;
+
                 }
             }
 
@@ -228,11 +217,11 @@ public class PlayerController : MonoBehaviour
         touchCanvas.gameObject.SetActive(true);
         hook.SetActive(false);
         canOpenCabin = true;//可以打开船舱
+        fishLine.gameObject.transform.parent.gameObject.SetActive(false);
 
-        PutFishIntoBasket(currentFish.gameObject.name);//将当前鱼名字传进去，用于往鱼筐里加鱼
-        //Debug.Log(fishBasket.currentFishBasket["qingYu"]);
-
-        Destroy(currentFish);
+        isPut = false;
+        
+        
     }
 
     IEnumerator MoveRope(Vector3 pt)
@@ -259,6 +248,12 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         panel.SetActive(true);
+        if (currentFish != null)
+        {
+            
+            Destroy(currentFish);
+        }
+        
 
     }
 
@@ -273,19 +268,24 @@ public class PlayerController : MonoBehaviour
 
     private void PutFishIntoBasket(string name)
     {
+      
         switch (name)
         {
             case "青鱼":
-                IncreaseDictionaryValue(FishBasket.currentFishBasket, "qingYu", 1);
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "qingYu", 1);
+                isPut = true;
                 break;
             case "金枪鱼":
-                IncreaseDictionaryValue(FishBasket.currentFishBasket, "jinQiangYu", 1);
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "jinQiangYu", 1);
+                isPut = true;
                 break;
             case "鳕鱼":
-                IncreaseDictionaryValue(FishBasket.currentFishBasket, "xueYu", 1);
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "xueYu", 1);
+                isPut = true;
                 break;
             case "三文鱼":
-                IncreaseDictionaryValue(FishBasket.currentFishBasket, "sanWenYu", 1);
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "sanWenYu", 1);
+                isPut = true;
                 break;
         }
     }

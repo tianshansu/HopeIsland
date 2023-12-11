@@ -28,8 +28,6 @@ public class Fish : MonoBehaviour
         fishAnimator = transform.GetChild(1).GetComponent<Animator>();
 
 
-        
-
     }
 
 
