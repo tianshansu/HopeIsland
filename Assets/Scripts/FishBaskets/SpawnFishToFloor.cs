@@ -62,12 +62,12 @@ public class SpawnFishToFloor : MonoBehaviour
 
     public GameObject ResizeFish(FishIntoBasket fish)
     {
-        int fishType = fish.fishSizeType;
+        int fishType = fish.fishOccupies;
 
 
         switch (fishType)
         {
-            case 0://当鱼占1x1格时
+            case 1://当鱼占1格时
                 float originalWidth = fish.gameObject.transform.GetChild(0).GetComponent<Renderer>().bounds.size.x;//获取当前鱼模型的宽度
                 float basketWidth = basket.gameObject.GetComponent<Renderer>().bounds.size.x;//获取鱼篓1的宽度
                 float ratio = basketWidth / originalWidth;//获取需要放大的比例
@@ -75,7 +75,7 @@ public class SpawnFishToFloor : MonoBehaviour
                 fish.gameObject.transform.localScale = new Vector3(fish.gameObject.transform.localScale.x * ratio*0.5f, fish.gameObject.transform.localScale.y * ratio * 0.5f, fish.gameObject.transform.localScale.z * ratio * 0.5f);
                 return fish.gameObject;
 
-            case 1://当鱼占1x2格时
+            case 2://当鱼占2格时
                 originalWidth = fish.gameObject.transform.GetChild(0).GetComponent<Renderer>().bounds.size.x;//获取当前鱼模型的宽度
                 basketWidth = basket.gameObject.GetComponent<Renderer>().bounds.size.x;//获取鱼篓2的宽度
                 ratio = basketWidth / originalWidth;//获取需要放大的比例
@@ -83,7 +83,7 @@ public class SpawnFishToFloor : MonoBehaviour
                 fish.gameObject.transform.localScale = new Vector3(fish.gameObject.transform.localScale.x * ratio * 0.8f, fish.gameObject.transform.localScale.y * ratio * 0.8f, fish.gameObject.transform.localScale.z * ratio * 0.8f);
                 return fish.gameObject;
 
-            case 2://当鱼占1x3格时
+            case 3://当鱼占3格时
                 originalWidth = fish.gameObject.transform.GetChild(0).GetComponent<Renderer>().bounds.size.x;//获取当前鱼模型的宽度
                 basketWidth = basket.gameObject.GetComponent<Renderer>().bounds.size.x;//获取鱼篓3的宽度
                 ratio = basketWidth / originalWidth;//获取需要放大的比例
@@ -91,7 +91,7 @@ public class SpawnFishToFloor : MonoBehaviour
                 fish.gameObject.transform.localScale = new Vector3(fish.gameObject.transform.localScale.x * ratio, fish.gameObject.transform.localScale.y * ratio, fish.gameObject.transform.localScale.z * ratio);
                 return fish.gameObject;
 
-            case 3://当鱼占2x2格时
+            case 4://当鱼占4格时
                 originalWidth = fish.gameObject.transform.GetChild(0).GetComponent<Renderer>().bounds.size.x;//获取当前鱼模型的宽度
                 basketWidth = basket.gameObject.GetComponent<Renderer>().bounds.size.x;//获取鱼篓4的宽度
                 ratio = basketWidth / originalWidth;//获取需要放大的比例

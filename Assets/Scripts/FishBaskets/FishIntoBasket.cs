@@ -10,19 +10,15 @@ using UnityEngine.InputSystem.EnhancedTouch;
 
 public class FishIntoBasket : MonoBehaviour
 {
-    //鱼本身
-    public int fishSizeType;//鱼大小的类别
-    [HideInInspector]
     public int fishOccupies;//鱼所占的格子数
     private Vector3 fishInitialPos;
 
     GameObject selectedObject;
 
-   
 
     private void Start()
     {
-        fishOccupies = fishOccupyGrids(fishSizeType);//返回这条鱼需要占几格   
+        //fishOccupies = fishOccupyGrids(fishSizeType);//返回这条鱼需要占几格   
         fishInitialPos = gameObject.transform.position;
     }
 
@@ -58,8 +54,8 @@ public class FishIntoBasket : MonoBehaviour
                     Vector3 touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, zDepth));//确保高度要统一，否则移动不准确
 
 
-                    //float desiredHeight = 9f; // Set this to the desired height
-                    //touchPosition.y = desiredHeight;
+                    float desiredHeight = 8.5f; // Set this to the desired height
+                    touchPosition.y = desiredHeight;
 
                     selectedObject.transform.position = touchPosition;
 
@@ -85,22 +81,22 @@ public class FishIntoBasket : MonoBehaviour
         }
     }
 
-    public int fishOccupyGrids(int type)
-    {
-        switch (type)
-        {
-            case 0:
-                return 1;
-            case 1:
-                return 2;
-            case 2:
-                return 3;
-            case 3:
-                return 4;
-            default:
-                return 0;
-        }
-    }
+    //public int fishOccupyGrids(int type)
+    //{
+    //    switch (type)
+    //    {
+    //        case 0:
+    //            return 1;
+    //        case 1:
+    //            return 2;
+    //        case 2:
+    //            return 3;
+    //        case 3:
+    //            return 4;
+    //        default:
+    //            return 0;
+    //    }
+    //}
 
     public void ResetFishPos()
     {

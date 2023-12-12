@@ -423,9 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0581a0aefb9ade14cbcd77bb3cc2d8c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishSizeType: 0
-  fishOccupies: 0
-  table: {fileID: 0}
+  fishOccupies: 9
 --- !u!54 &7860258734987182318
 Rigidbody:
   m_ObjectHideFlags: 0
