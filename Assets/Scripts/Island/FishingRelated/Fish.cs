@@ -12,21 +12,20 @@ using UnityEngine;
 public class Fish : MonoBehaviour
 {
     //钓鱼相关
-    private PlayerController player;
     private float sec;
     private FixedJoint joint;
     private Rigidbody rg;
     private Animator fishAnimator;
 
+    private PlayerFishingFunction playerFishingFunction;
 
-    
 
     private void Start()
     {
         joint= GetComponent<FixedJoint>();
         rg= gameObject.GetComponent<Rigidbody>();
         fishAnimator = transform.GetChild(1).GetComponent<Animator>();
-
+        playerFishingFunction=GameObject.Find("Player").GetComponent<PlayerFishingFunction>();
 
     }
 
@@ -35,22 +34,21 @@ public class Fish : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        player = GameObject.Find("Player").GetComponent<PlayerController>();
-        if (player.isCatchingFish == false)
+        if (playerFishingFunction.isWaitingForFish)//如果抛竿了正在等待鱼的时候
         {
-            if (other.gameObject.tag == "YuGan")
+            if (other.gameObject.tag == "YuGan")//碰到了tag为YuGan的collider，开始进入流程准备上钩
             {
-                player.isCatchingFish = true;
+                playerFishingFunction.isWaitingForFish= false;
                 sec = Random.Range(3, 10);
                 StartCoroutine("WaitFor");
-                player.currentFish = transform.gameObject;
+                playerFishingFunction.currentFish = transform.gameObject;
                 
             }
         }
         
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)//如果鱼竿提前抬起来了，就终止
     {
         if(other.gameObject.tag=="YuGan")
         {
@@ -61,10 +59,10 @@ public class Fish : MonoBehaviour
 
     IEnumerator WaitFor()
     {
-        if(player.fishCreated== false)
+        if(playerFishingFunction.fishCreated== false)
         {
             yield return new WaitForSeconds(sec);
-            player.findFish = true;
+            playerFishingFunction.findFish = true;
             fishAnimator.SetBool("Jumping", true);
 
         }
@@ -75,8 +73,8 @@ public class Fish : MonoBehaviour
     public void FishStickOnRod()
     {
         
-        transform.position=new Vector3(player.lastBone.transform.position.x, player.lastBone.transform.position.y-0.6f, player.lastBone.transform.position.z);
-        transform.parent = player.lastBone.transform;
+        transform.position=new Vector3(playerFishingFunction.lastBone.transform.position.x, playerFishingFunction.lastBone.transform.position.y-0.6f, playerFishingFunction.lastBone.transform.position.z);
+        transform.parent = playerFishingFunction.lastBone.transform;
         ChangeUIName();
 
     }

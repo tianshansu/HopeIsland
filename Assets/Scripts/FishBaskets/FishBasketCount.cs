@@ -21,9 +21,7 @@ public class FishBasketCount : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(totalFishOccupy<=10)
-        { 
-        }
+      
         
         if(collision.gameObject.tag=="FishModel")
         {
@@ -43,6 +41,18 @@ public class FishBasketCount : MonoBehaviour
             
           
         }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        int fishOccupy = collision.gameObject.GetComponent<FishIntoBasket>().fishOccupies;
+
+        if (totalFishOccupy + fishOccupy <= 10)
+        {
+            totalFishOccupy -= fishOccupy; //注意需要用int来接受这个数值
+            text.text = totalFishOccupy.ToString(); //再将数值ToString
+        }
+      
     }
 
 }

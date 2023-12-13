@@ -204,7 +204,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1158912252}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &108257547
 GameObject:
@@ -2104,7 +2104,7 @@ Transform:
   m_Children:
   - {fileID: 1255526817}
   m_Father: {fileID: 1158912252}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &566088061
 GameObject:
@@ -2194,6 +2194,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Boat, Assembly-CSharp
         m_MethodName: PlayerGetBackToMaTou
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 566088061}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2584,7 +2596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &795285107
 Transform:
   m_ObjectHideFlags: 0
@@ -2598,7 +2610,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1158912252}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &795285108
 ParticleSystemRenderer:
@@ -2621,7 +2633,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e9a77588f8f4e654d8784dd0d0bc495f, type: 2}
+  - {fileID: 2100000, guid: 1eca7a95463736a46b0a28d842d871a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7445,7 +7457,7 @@ MonoBehaviour:
   angle: 30
   radius: 6
   playerInput: {fileID: 1279787839}
-  player: {fileID: 1279787838}
+  playerFishingFunction: {fileID: 1279787841}
   playerCt: {x: 0, y: 0, z: 0}
   fishLine: {fileID: 411444369}
 --- !u!1 &824928779
@@ -7479,7 +7491,7 @@ Transform:
   - {fileID: 411444368}
   - {fileID: 1839119093}
   m_Father: {fileID: 1158912252}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &848847444
 GameObject:
@@ -7931,7 +7943,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -7989,7 +8001,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -8411,7 +8423,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1719732631}
   - {fileID: 1937752475}
   - {fileID: 524449915}
   - {fileID: 66398462}
@@ -8419,6 +8430,7 @@ Transform:
   - {fileID: 1827299548}
   - {fileID: 1513516791}
   - {fileID: 795285107}
+  - {fileID: 1719732631}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8451,7 +8463,7 @@ MonoBehaviour:
   finishBoat: {fileID: 566088063}
   fishing: {fileID: 1603350662}
   playerPos: {fileID: 1279787837}
-  player: {fileID: 1279787838}
+  playerFishingFunction: {fileID: 1279787841}
   facingPt: {fileID: 66398461}
   cabinCanvas: {fileID: 1827299547}
 --- !u!114 &1158912255
@@ -8917,6 +8929,7 @@ GameObject:
   - component: {fileID: 1279787839}
   - component: {fileID: 1279787838}
   - component: {fileID: 1279787840}
+  - component: {fileID: 1279787841}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -8953,31 +8966,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 2
-  fishingSpeed: 2
-  fishingRange: 7
-  hook: {fileID: 813780817}
-  isFishing: 0
-  startFishing: {fileID: 1603350662}
-  finishFishing: {fileID: 1617624352}
-  fishPt: {x: 0, y: 0, z: 0}
-  lastBone: {fileID: 2482932369003894517}
-  lastBoneRb: {fileID: 1214112639}
-  fishingPole: {fileID: 1255526818}
-  poleAnim: {fileID: 0}
-  buoy: {fileID: 1911954022}
-  touchCanvas: {fileID: 262480788}
-  findFish: 0
-  fishCreated: 0
-  positionRod: 0
-  currentFish: {fileID: 0}
-  isCatchingFish: 0
-  canPlayStartAnim: 0
-  boat: {fileID: 1158912254}
-  canOpenCabin: 0
-  hookMovement: {fileID: 813780819}
-  startMovingHook: 0
-  fishLine: {fileID: 411444369}
-  fishBasket: {fileID: 1158912255}
 --- !u!114 &1279787839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9030,6 +9018,38 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1279787841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279787836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b180fd8ca5b7a64c84e8ca14a9ce5de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishingSpeed: 2
+  fishingRange: 7
+  hook: {fileID: 813780817}
+  isPlacingFishingSpot: 0
+  fishPt: {x: 0, y: 0, z: 0}
+  lastBone: {fileID: 2482932369003894517}
+  fishingPole: {fileID: 1255526818}
+  buoy: {fileID: 1911954022}
+  touchCanvas: {fileID: 262480788}
+  currentFish: {fileID: 0}
+  canPlayStartAnim: 0
+  boat: {fileID: 1158912254}
+  hookMovement: {fileID: 813780819}
+  findFish: 0
+  fishCreated: 0
+  positionRod: 0
+  isCatchingFish: 0
+  canOpenCabin: 0
+  fishLine: {fileID: 411444369}
+  fishBasket: {fileID: 1158912255}
 --- !u!4 &1288248164 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 35b636bd299efda48861a87b51aab31d, type: 3}
@@ -9307,7 +9327,7 @@ Transform:
   - {fileID: 157457754}
   - {fileID: 446434061}
   m_Father: {fileID: 1158912252}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1513516792
 MonoBehaviour:
@@ -9823,8 +9843,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1279787838}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1279787841}
+        m_TargetAssemblyTypeName: PlayerFishingFunction, Assembly-CSharp
         m_MethodName: Fishing
         m_Mode: 1
         m_Arguments:
@@ -9834,6 +9854,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1603350660}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1617624350}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1603350663
 MonoBehaviour:
@@ -10037,8 +10081,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1279787838}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1279787841}
+        m_TargetAssemblyTypeName: PlayerFishingFunction, Assembly-CSharp
         m_MethodName: FinishFishing
         m_Mode: 1
         m_Arguments:
@@ -10048,6 +10092,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1617624350}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1603350660}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1617624353
 MonoBehaviour:
@@ -10233,8 +10301,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1279787838}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1279787841}
+        m_TargetAssemblyTypeName: PlayerFishingFunction, Assembly-CSharp
         m_MethodName: HideCollectPanel
         m_Mode: 1
         m_Arguments:
@@ -10421,7 +10489,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1719732631
 Transform:
   m_ObjectHideFlags: 0
@@ -10435,7 +10503,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1158912252}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1719732632
 MonoBehaviour:
@@ -10454,7 +10522,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -10477,7 +10545,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719732630}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
@@ -10522,10 +10590,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1719732630}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfc7fbae3ce7e5440bb8d52b70e4e49b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ee3cb6eb34bf694b9f32c7b4c457002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rt: {fileID: 8400000, guid: e9e0b8cfa1550574690ac88f8b4a457b, type: 2}
+  rt: {fileID: 8400000, guid: 8877459ea1a0a80408c61c43ad2923ef, type: 2}
   target: {fileID: 1719732631}
 --- !u!54 &1797271449
 Rigidbody:
@@ -10726,7 +10794,7 @@ RectTransform:
   m_Children:
   - {fileID: 1567847085}
   m_Father: {fileID: 1158912252}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10749,6 +10817,7 @@ MonoBehaviour:
   player: {fileID: 1279787838}
   openCabin: {fileID: 1567847086}
   closeTime: 2
+  playerFishingFunction: {fileID: 1279787841}
 --- !u!1 &1830148991
 GameObject:
   m_ObjectHideFlags: 0
@@ -11085,7 +11154,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e607f0c7789753b42934f89639d29182, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e607f0c7789753b42934f89639d29182, type: 3}
       propertyPath: m_LocalScale.x

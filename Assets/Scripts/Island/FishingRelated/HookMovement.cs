@@ -17,7 +17,7 @@ public class HookMovement : MonoBehaviour
 
 
     public PlayerInput playerInput;//创建input类
-    public PlayerController player;
+    public PlayerFishingFunction playerFishingFunction;
 
     private float currentDistance = 0;
     private float currentAngle = 0;
@@ -25,7 +25,17 @@ public class HookMovement : MonoBehaviour
     public Vector3 playerCt;
 
 
+
     public FishingLineRenderer fishLine;
+
+
+    private void Start()
+    {
+
+      
+    }
+
+
 
     void Update()
     {
@@ -35,15 +45,15 @@ public class HookMovement : MonoBehaviour
 
         move.y = 0f;//不允许跳跃
 
-        transform.Translate(move * Time.deltaTime * player.fishingSpeed);//让钩子移动
+        transform.Translate(move * Time.deltaTime * playerFishingFunction.fishingSpeed);//让钩子移动
 
-        playerCt = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+        playerCt = new Vector3(playerFishingFunction.transform.position.x, transform.position.y, playerFishingFunction.transform.position.z);
         
 
         currentDistance = Vector3.Distance(playerCt, transform.position);
  
         Vector3 self = transform.position - playerCt;
-        Vector3 playerPos = currentDistance * player.transform.forward;
+        Vector3 playerPos = currentDistance * playerFishingFunction.transform.forward;
 
         currentAngle = Vector3.Angle(self, playerPos);
 
@@ -55,13 +65,13 @@ public class HookMovement : MonoBehaviour
 
            if(currentAngle < -angle || currentAngle > angle)//如果角度往下小了
             {
-                Vector3 newPt = playerCt + Vector3.Distance(playerCt, transform.position) * player.transform.forward;//计算玩家正前方的那个点的距离
+                Vector3 newPt = playerCt + Vector3.Distance(playerCt, transform.position) * playerFishingFunction.transform.forward;//计算玩家正前方的那个点的距离
                 Vector3 newDir = newPt - transform.position;
-                transform.position += newDir.normalized * player.fishingSpeed * Time.deltaTime;
+                transform.position += newDir.normalized * playerFishingFunction.fishingSpeed * Time.deltaTime;
             }
             else if(currentDistance > radius)//如果是距离超过了
             {
-                transform.position -= (transform.position - playerCt).normalized * player.fishingSpeed * Time.deltaTime;
+                transform.position -= (transform.position - playerCt).normalized * playerFishingFunction.fishingSpeed * Time.deltaTime;
             }
         }
 
@@ -71,12 +81,19 @@ public class HookMovement : MonoBehaviour
             fishLine.gameObject.transform.parent.gameObject.SetActive(false);//隐藏限制线
 
 
-            player.fishPt = transform.position;
-            player.poleAnim.Play("FishingPole");
-            player.canPlayStartAnim = true;
+            playerFishingFunction.fishPt = transform.position;
+            playerFishingFunction.fishingPole.GetComponent<Animation>().Play("FishingPole");
+
+
+
+
+            playerFishingFunction.canPlayStartAnim = true;
             playerInput.DeactivateInput();//禁止输入
-            player.touchCanvas.gameObject.SetActive(false);
-            player.positionRod = true;//已下杆
+            playerFishingFunction.touchCanvas.gameObject.SetActive(false);
+
+            playerFishingFunction.isWaitingForFish = true;//开始让鱼可以咬钩
+            playerFishingFunction.hookPlaced = true;//已下杆
+
             gameObject.SetActive(false);
             
 

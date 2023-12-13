@@ -13,11 +13,11 @@ public class Boat : MonoBehaviour
     public Button startBoat;
     public Button finishBoat;
     public Button fishing;
-    [HideInInspector]
+ 
     public Transform playerPos;
-    [HideInInspector]
-    public PlayerController player;
-    [HideInInspector]
+
+    public PlayerFishingFunction playerFishingFunction;
+
     public GameObject facingPt;
 
     private Transform maTou;
@@ -42,22 +42,22 @@ public class Boat : MonoBehaviour
 
     public void StickWithPlayer()
     {
-        player.MoveToNewPlace(gameObject.transform.position);//改变玩家位置
+        playerFishingFunction.MoveToNewPlace(gameObject.transform.position);//改变玩家位置
         playerPos.forward = facingPt.transform.forward;//改变玩家朝向为船头处的那个点的朝向
         startBoat.gameObject.SetActive(false);
         fishing.gameObject.SetActive(true);
         transform.parent=playerPos.transform;
-        player.canOpenCabin=true;
+
     }
 
 
     public void PlayerGetBackToMaTou()
     {
         transform.parent = null;
-        player.MoveToNewPlace(maTou.transform.position);
+        playerFishingFunction.MoveToNewPlace(maTou.transform.position);
         finishBoat.gameObject.SetActive(false);
         fishing.gameObject.SetActive(false);
-        player.canOpenCabin= false;
+
     }
 
 

@@ -17,9 +17,13 @@ public class CabinCanvasController : MonoBehaviour
     private float originalTime;
     public float closeTime;
 
+
+    public PlayerFishingFunction playerFishingFunction;
+
+
     private void Update()
     {
-        if (player.canOpenCabin == true)
+        if (playerFishingFunction.isPlacingFishingSpot == false)
         {
             if (UnityEngine.Input.touchCount > 0)
             {
