@@ -37,6 +37,8 @@ public class FishBasketCount : MonoBehaviour
             {
                 textFull.gameObject.SetActive(true);
                 other.gameObject.GetComponent<FishIntoBasket>().ResetFishPos();
+                totalFishOccupy += fishOccupy; //注意需要用int来接受这个数值
+                text.text = totalFishOccupy.ToString(); //再将数值ToString
             }
 
 

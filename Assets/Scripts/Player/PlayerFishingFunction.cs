@@ -96,7 +96,7 @@ public class PlayerFishingFunction : MonoBehaviour
                 {
                     buoy.Stop();
 
-                    if (isPut == false)
+                    if (isPut == false)//只有当isPut是false，才能往dict里加数据，所以别忘记在按屏幕钓上鱼的时候设置false
                     {
                         PutFishIntoBasket(currentFish.gameObject.name);//将当前鱼名字传进去，用于往鱼筐里加鱼
                     }
@@ -138,7 +138,7 @@ public class PlayerFishingFunction : MonoBehaviour
                     {
                         RepositionRod();
                     }
-                    
+                    isPut = false;
                     currentFish = null;
                     isWaitingForFish = false;
                     hookPlaced = false;
@@ -249,36 +249,27 @@ public class PlayerFishingFunction : MonoBehaviour
         switch (name)
         {
             case "青鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "qingYu");
+                fishBasket.IncreaseDictionaryValue("qingYu");
                 isPut = true;
 
                 break;
             case "金枪鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "jinQiangYu");
+                fishBasket.IncreaseDictionaryValue("jinQiangYu");
                 isPut = true;
 
                 break;
             case "鳕鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "xueYu");
+                fishBasket.IncreaseDictionaryValue("xueYu");
                 isPut = true;
 
                 break;
             case "三文鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "sanWenYu"); 
+                fishBasket.IncreaseDictionaryValue("sanWenYu"); 
                 isPut = true;
 
                 break;
         }
     }
 
-    private void IncreaseDictionaryValue(Dictionary<string, int> dictionary, string key)
-    {
-        int num = 1;
-        // 检查这个类别是否存在
-        if (dictionary.ContainsKey(key))
-        {
-            // Increase the value associated with the key
-            dictionary[key] += num;
-        }
-    }
+    
 }

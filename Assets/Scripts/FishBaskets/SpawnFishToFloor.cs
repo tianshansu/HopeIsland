@@ -25,21 +25,27 @@ public class SpawnFishToFloor : MonoBehaviour
 
     public FishBasket fishbasket;
 
-    private void Start()
+    private void OnEnable()
     {
         SpawnFish(qingYu, fishbasket.currentFishBasket["qingYu"]);
         SpawnFish(jinQiangYu, fishbasket.currentFishBasket["jinQiangYu"]);
         SpawnFish(xueYu, fishbasket.currentFishBasket["xueYu"]);
         SpawnFish(sanWenYu, fishbasket.currentFishBasket["sanWenYu"]);
-
-        Debug.Log("青鱼"+fishbasket.currentFishBasket["qingYu"]);
-        Debug.Log("三文鱼" + fishbasket.currentFishBasket["sanWenYu"]);
-        Debug.Log("鳕鱼" + fishbasket.currentFishBasket["xueYu"]);
-        Debug.Log("金枪鱼" + fishbasket.currentFishBasket["jinQiangYu"]);
-
-
-
     }
+    
+    
+    //private void Start()
+    //{
+       
+
+    //    Debug.Log("青鱼"+fishbasket.currentFishBasket["qingYu"]);
+    //    Debug.Log("三文鱼" + fishbasket.currentFishBasket["sanWenYu"]);
+    //    Debug.Log("鳕鱼" + fishbasket.currentFishBasket["xueYu"]);
+    //    Debug.Log("金枪鱼" + fishbasket.currentFishBasket["jinQiangYu"]);
+
+
+
+    //}
     private void OnDrawGizmosSelected()
     {
         //Gizmos.color = new Color(1, 0, 0, 0.5f);
@@ -57,10 +63,9 @@ public class SpawnFishToFloor : MonoBehaviour
         for (int i = 0; i < number; i++)//根据篮子里有的鱼数量，生成对应数量的鱼
         {
             Vector3 pos = gameObject.transform.position + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0.5f, Random.Range(-size.z / 2, size.z / 2));
-
             Quaternion rotation = Quaternion.Euler(90, 0, 0);
-            GameObject instantiatedObject = Instantiate(fishMod,pos, rotation);//生成鱼
-            //instantiatedObject.transform.localPosition = new Vector3(0f, 5f, 0f);//生成鱼的位置
+            GameObject instantiatedFish = Instantiate(fishMod,pos, rotation);//生成鱼
+          
         }
     }
 

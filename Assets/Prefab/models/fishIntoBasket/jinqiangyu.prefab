@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 7769632315821601646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2180243, y: 0.2180243, z: 0.2180243}
+  m_LocalScale: {x: 0.4360486, y: 0.4360486, z: 0.4360486}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6118475803974726321}
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0581a0aefb9ade14cbcd77bb3cc2d8c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishOccupies: 1
+  fishOccupies: 3
 --- !u!54 &7427050124502371874
 Rigidbody:
   m_ObjectHideFlags: 0

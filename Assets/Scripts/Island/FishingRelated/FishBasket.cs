@@ -20,6 +20,27 @@ public class FishBasket : MonoBehaviour
     };//创建dict,做成instance
 
 
+    public void IncreaseDictionaryValue(string key)
+    {
+
+        // 检查这个类别是否存在
+        if (currentFishBasket.ContainsKey(key))
+        {
+            // Increase the value associated with the key
+            currentFishBasket[key]++;
+        }
+    }
+
+
+    public void DecreaseDictionaryValue(string key)
+    {
+        // 检查这个类别是否存在
+        if (currentFishBasket.ContainsKey(key))
+        {
+            // Increase the value associated with the key
+            currentFishBasket[key]--;
+        }
+    }
 
 
 
@@ -28,5 +49,5 @@ public class FishBasket : MonoBehaviour
     //    currentFishBasket.Clear();
     //}
 
-    
+
 }

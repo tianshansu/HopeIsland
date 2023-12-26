@@ -15,11 +15,13 @@ public class FishIntoBasket : MonoBehaviour
 
     GameObject selectedObject;
 
+    FishBasket fishBasket;
 
     private void Start()
     {
         //fishOccupies = fishOccupyGrids(fishSizeType);//返回这条鱼需要占几格   
         fishInitialPos = gameObject.transform.position;
+        fishBasket=GameObject.Find("Boat").GetComponent<FishBasket>();
     }
 
     private void Update()
@@ -75,30 +77,16 @@ public class FishIntoBasket : MonoBehaviour
             }
         }
 
-        if(gameObject.transform.position.y<-1)
+        if(gameObject.transform.position.y<-1)//如果鱼被扔掉
         {
-            ResetFishPos();
+            Destroy(gameObject);
+            
         }
     }
 
-    //public int fishOccupyGrids(int type)
-    //{
-    //    switch (type)
-    //    {
-    //        case 0:
-    //            return 1;
-    //        case 1:
-    //            return 2;
-    //        case 2:
-    //            return 3;
-    //        case 3:
-    //            return 4;
-    //        default:
-    //            return 0;
-    //    }
-    //}
 
-    public void ResetFishPos()
+
+    public void ResetFishPos()//用于鱼篓装满时鱼弹回原位
     {
         gameObject.transform.position = fishInitialPos;
     }
