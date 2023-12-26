@@ -516,7 +516,8 @@ GameObject:
   - component: {fileID: 157457754}
   - component: {fileID: 157457756}
   - component: {fileID: 157457755}
-  m_Layer: 0
+  - component: {fileID: 157457757}
+  m_Layer: 2
   m_Name: FishBackets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,6 +568,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 579551393}
   textFull: {fileID: 1380739809}
+--- !u!65 &157457757
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157457753}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.6560213, z: 1}
+  m_Center: {x: 0, y: 0.3382388, z: 0}
 --- !u!1 &198504763
 GameObject:
   m_ObjectHideFlags: 0
@@ -9043,13 +9057,13 @@ MonoBehaviour:
   canPlayStartAnim: 0
   boat: {fileID: 1158912254}
   hookMovement: {fileID: 813780819}
-  findFish: 0
-  fishCreated: 0
-  positionRod: 0
-  isCatchingFish: 0
-  canOpenCabin: 0
   fishLine: {fileID: 411444369}
   fishBasket: {fileID: 1158912255}
+  isWaitingForFish: 0
+  findFish: 0
+  hookPlaced: 0
+  hookIsRePlaced: 0
+  fishCreated: 0
 --- !u!4 &1288248164 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 35b636bd299efda48861a87b51aab31d, type: 3}
@@ -10209,6 +10223,10 @@ PrefabInstance:
     - target: {fileID: 6367262924842449821, guid: 6e437cbab83c3a642801ac243f7048b3, type: 3}
       propertyPath: m_Name
       value: basket01WithCol
+      objectReference: {fileID: 0}
+    - target: {fileID: 6367262924842449821, guid: 6e437cbab83c3a642801ac243f7048b3, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e437cbab83c3a642801ac243f7048b3, type: 3}

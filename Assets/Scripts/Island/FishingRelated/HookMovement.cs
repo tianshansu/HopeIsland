@@ -80,6 +80,8 @@ public class HookMovement : MonoBehaviour
         {
             fishLine.gameObject.transform.parent.gameObject.SetActive(false);//隐藏限制线
 
+            playerFishingFunction.hookIsRePlaced = false;//鱼竿已经被放出的状态
+
 
             playerFishingFunction.fishPt = transform.position;
             playerFishingFunction.fishingPole.GetComponent<Animation>().Play("FishingPole");

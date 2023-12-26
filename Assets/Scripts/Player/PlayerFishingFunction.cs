@@ -59,7 +59,7 @@ public class PlayerFishingFunction : MonoBehaviour
 
     public bool hookPlaced;//放下杆子了
 
-
+    public bool hookIsRePlaced;//杆子已经被重置了
 
 
     public bool fishCreated;
@@ -86,20 +86,25 @@ public class PlayerFishingFunction : MonoBehaviour
             if (currentFish != null)
             {
                 currentFish.GetComponent<Fish>().FishStickOnRod();//将碰到的鱼粘在钓鱼竿上
-                //buoy.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
-                //buoy.gameObject.transform.position=new Vector3(buoy.gameObject.transform.position.x,-1,buoy.gameObject.transform.position.z) ;
+                
                 buoy.Play();
 
-                if (isPut == false)
-                {
-                    PutFishIntoBasket(currentFish.gameObject.name);//将当前鱼名字传进去，用于往鱼筐里加鱼
-                }
+                
 
 
                 if (Input.touchCount > 0)//如果按屏幕
                 {
                     buoy.Stop();
-                    RepositionRod();
+
+                    if (isPut == false)
+                    {
+                        PutFishIntoBasket(currentFish.gameObject.name);//将当前鱼名字传进去，用于往鱼筐里加鱼
+                    }
+
+                    if (hookIsRePlaced == false)
+                    {
+                        RepositionRod();
+                    }
 
 
                     if (currentFish != null)
@@ -129,7 +134,11 @@ public class PlayerFishingFunction : MonoBehaviour
                 if (Input.touchCount > 0)
                 {
                     buoy.Stop();
-                    RepositionRod();
+                    if(hookIsRePlaced==false)
+                    {
+                        RepositionRod();
+                    }
+                    
                     currentFish = null;
                     isWaitingForFish = false;
                     hookPlaced = false;
@@ -171,10 +180,6 @@ public class PlayerFishingFunction : MonoBehaviour
         hookPlaced = false;
 
 
-
-
-
-
         lastBone.gameObject.transform.localPosition = ropeInitialPos;
     
         playerInput.ActivateInput();//允许输入
@@ -187,6 +192,8 @@ public class PlayerFishingFunction : MonoBehaviour
 
 
     }
+
+  
 
     IEnumerator MoveRope(Vector3 pt)
     {
@@ -201,6 +208,8 @@ public class PlayerFishingFunction : MonoBehaviour
     {
         lastBoneRb.transform.localPosition = Vector3.zero;
         fishingPole.GetComponent<Animation>().Play("FindFish");
+        hookIsRePlaced = true;
+        KeepFishing();
     }
 
 
@@ -216,16 +225,22 @@ public class PlayerFishingFunction : MonoBehaviour
     }
 
 
-    public void HideCollectPanel()
+    public void HideCollectPanel()//在关闭找到鱼的面板后，调用
     {
         panel.SetActive(false);
+        KeepFishing();
+
+    }
+
+    public void KeepFishing()
+    {
         playerInput.ActivateInput();//允许输入
         fishLine.gameObject.transform.parent.gameObject.SetActive(true);
         hook.SetActive(true);
         hook.gameObject.transform.position = new Vector3(transform.position.x, hook.gameObject.transform.position.y, transform.position.z);
         touchCanvas.gameObject.SetActive(true);
         isWaitingForFish = false;
-
+        
     }
 
     private void PutFishIntoBasket(string name)
@@ -234,35 +249,36 @@ public class PlayerFishingFunction : MonoBehaviour
         switch (name)
         {
             case "青鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "qingYu", 1);
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "qingYu");
                 isPut = true;
 
                 break;
             case "金枪鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "jinQiangYu", 1);
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "jinQiangYu");
                 isPut = true;
 
                 break;
             case "鳕鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "xueYu", 1);
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "xueYu");
                 isPut = true;
 
                 break;
             case "三文鱼":
-                IncreaseDictionaryValue(fishBasket.currentFishBasket, "sanWenYu", 1);
+                IncreaseDictionaryValue(fishBasket.currentFishBasket, "sanWenYu"); 
                 isPut = true;
 
                 break;
         }
     }
 
-    static void IncreaseDictionaryValue(Dictionary<string, int> dictionary, string key, int increment)
+    private void IncreaseDictionaryValue(Dictionary<string, int> dictionary, string key)
     {
+        int num = 1;
         // 检查这个类别是否存在
         if (dictionary.ContainsKey(key))
         {
             // Increase the value associated with the key
-            dictionary[key] += increment;
+            dictionary[key] += num;
         }
     }
 }

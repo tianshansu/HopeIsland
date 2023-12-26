@@ -19,13 +19,14 @@ public class FishBasketCount : MonoBehaviour
         int num = 0;
         text.text = num.ToString();
     }
-    private void OnCollisionEnter(Collision collision)
+
+
+    private void OnTriggerEnter(Collider other)
     {
-      
-        
-        if(collision.gameObject.tag=="FishModel")
+
+        if (other.gameObject.tag == "FishModel")
         {
-            int fishOccupy = collision.gameObject.GetComponent<FishIntoBasket>().fishOccupies;
+            int fishOccupy = other.gameObject.GetComponent<FishIntoBasket>().fishOccupies;
 
             if (totalFishOccupy + fishOccupy <= 10)
             {
@@ -35,24 +36,23 @@ public class FishBasketCount : MonoBehaviour
             else
             {
                 textFull.gameObject.SetActive(true);
-                collision.gameObject.GetComponent<FishIntoBasket>().ResetFishPos();
+                other.gameObject.GetComponent<FishIntoBasket>().ResetFishPos();
             }
 
-            
-          
+
+
         }
     }
-
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        int fishOccupy = collision.gameObject.GetComponent<FishIntoBasket>().fishOccupies;
+        int fishOccupy = other.gameObject.GetComponent<FishIntoBasket>().fishOccupies;
 
-        if (totalFishOccupy + fishOccupy <= 10)
-        {
-            totalFishOccupy -= fishOccupy; //注意需要用int来接受这个数值
-            text.text = totalFishOccupy.ToString(); //再将数值ToString
-        }
+        totalFishOccupy -= fishOccupy; //注意需要用int来接受这个数值
+        text.text = totalFishOccupy.ToString(); //再将数值ToString
       
     }
+
+
+
 
 }

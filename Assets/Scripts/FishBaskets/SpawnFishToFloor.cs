@@ -32,7 +32,12 @@ public class SpawnFishToFloor : MonoBehaviour
         SpawnFish(xueYu, fishbasket.currentFishBasket["xueYu"]);
         SpawnFish(sanWenYu, fishbasket.currentFishBasket["sanWenYu"]);
 
-        Debug.Log(fishbasket.currentFishBasket["qingYu"]);
+        Debug.Log("青鱼"+fishbasket.currentFishBasket["qingYu"]);
+        Debug.Log("三文鱼" + fishbasket.currentFishBasket["sanWenYu"]);
+        Debug.Log("鳕鱼" + fishbasket.currentFishBasket["xueYu"]);
+        Debug.Log("金枪鱼" + fishbasket.currentFishBasket["jinQiangYu"]);
+
+
 
     }
     private void OnDrawGizmosSelected()
@@ -46,7 +51,7 @@ public class SpawnFishToFloor : MonoBehaviour
     {
         FishIntoBasket fishScript = fish.GetComponent<FishIntoBasket>();
 
-        GameObject fishMod = ResizeFish(fishScript);//调用下面方法来返回一个缩放之后的图片
+        GameObject fishMod = ResizeFish(fishScript);//调用下面方法来返回一个缩放之后的模型
 
 
         for (int i = 0; i < number; i++)//根据篮子里有的鱼数量，生成对应数量的鱼
