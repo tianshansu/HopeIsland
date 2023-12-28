@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 7860258734987182318}
   - component: {fileID: 2178428802841563754}
   m_Layer: 0
-  m_Name: qingyu
+  m_Name: qingYu
   m_TagString: FishModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

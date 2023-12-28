@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ using UnityEngine.UI;
 public class FishBasket : MonoBehaviour
 {
     //public FishBasket Instance;
+    public FishBasketCount fishBasketCount;
 
     public Dictionary<string, int> currentFishBasket = new Dictionary<string, int>()
     {
@@ -20,34 +22,59 @@ public class FishBasket : MonoBehaviour
     };//创建dict,做成instance
 
 
-    public void IncreaseDictionaryValue(string key)
+    public Dictionary<string, int> keptFishBasket = new Dictionary<string, int>()
+    {
+        { "qingYu", 0 },
+        { "jinQiangYu", 0 },
+        { "xueYu", 0 },
+        { "sanWenYu", 0 }
+    };//创建dict,做成instance
+
+
+    public void IncreaseDictionaryValue(Dictionary<string,int> dict, string key)
     {
 
         // 检查这个类别是否存在
-        if (currentFishBasket.ContainsKey(key))
+        if (dict.ContainsKey(key))
         {
             // Increase the value associated with the key
-            currentFishBasket[key]++;
+            dict[key]++;
         }
     }
 
 
-    public void DecreaseDictionaryValue(string key)
+    public void DecreaseDictionaryValue(Dictionary<string, int> dict, string key)
     {
         // 检查这个类别是否存在
-        if (currentFishBasket.ContainsKey(key))
+        if (dict.ContainsKey(key))
         {
-            // Increase the value associated with the key
-            currentFishBasket[key]--;
+            //Debug.Log("Ye");
+            dict[key]--;
         }
     }
 
 
+    public void ClearBasket()//篮子清空
+    {
+        List<string> keys = new List<string>(currentFishBasket.Keys); //新建一个list存放我的所有key
 
-    //public void ClearBasket()//篮子清空
-    //{
-    //    currentFishBasket.Clear();
-    //}
+        foreach (string key in keys)//使用foreach读取这个list里的内容
+        {
+            currentFishBasket[key] = 0;
+        }
 
+    }
+    public void CloseBasket()//关闭鱼篓
+    {
+        ClearBasket();
 
+        fishBasketCount.ClearCount();
+
+        GameObject[] currentFishModel = GameObject.FindGameObjectsWithTag("FishModel");//根据tag找到当前场面上所有的鱼模型-返回的是一个array[]
+        foreach (GameObject model in currentFishModel) //删除当前场上所有的鱼模型
+        {
+            Destroy(model);
+        }
+    }
 }
+    

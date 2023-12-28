@@ -249,22 +249,22 @@ public class PlayerFishingFunction : MonoBehaviour
         switch (name)
         {
             case "青鱼":
-                fishBasket.IncreaseDictionaryValue("qingYu");
+                fishBasket.IncreaseDictionaryValue(fishBasket.currentFishBasket, "qingYu");
                 isPut = true;
 
                 break;
             case "金枪鱼":
-                fishBasket.IncreaseDictionaryValue("jinQiangYu");
+                fishBasket.IncreaseDictionaryValue(fishBasket.currentFishBasket, "jinQiangYu");
                 isPut = true;
 
                 break;
             case "鳕鱼":
-                fishBasket.IncreaseDictionaryValue("xueYu");
+                fishBasket.IncreaseDictionaryValue(fishBasket.currentFishBasket, "xueYu");
                 isPut = true;
 
                 break;
             case "三文鱼":
-                fishBasket.IncreaseDictionaryValue("sanWenYu"); 
+                fishBasket.IncreaseDictionaryValue(fishBasket.currentFishBasket, "sanWenYu"); 
                 isPut = true;
 
                 break;

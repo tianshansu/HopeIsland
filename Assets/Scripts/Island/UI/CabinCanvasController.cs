@@ -21,6 +21,7 @@ public class CabinCanvasController : MonoBehaviour
     public PlayerFishingFunction playerFishingFunction;
 
 
+
     private void Update()
     {
         if (playerFishingFunction.isPlacingFishingSpot == false)
@@ -67,5 +68,8 @@ public class CabinCanvasController : MonoBehaviour
         }
 
     }
+
+
+
 
 }

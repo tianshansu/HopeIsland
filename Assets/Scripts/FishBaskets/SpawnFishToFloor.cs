@@ -21,39 +21,27 @@ public class SpawnFishToFloor : MonoBehaviour
 
     public GameObject basket;
 
-    public Vector3 size;
+    public Vector3 tableSize;
 
     public FishBasket fishbasket;
 
     private void OnEnable()
     {
-        SpawnFish(qingYu, fishbasket.currentFishBasket["qingYu"]);
-        SpawnFish(jinQiangYu, fishbasket.currentFishBasket["jinQiangYu"]);
-        SpawnFish(xueYu, fishbasket.currentFishBasket["xueYu"]);
-        SpawnFish(sanWenYu, fishbasket.currentFishBasket["sanWenYu"]);
+        SpawnFish(qingYu, fishbasket.currentFishBasket["qingYu"], gameObject.transform.position,tableSize);
+        SpawnFish(jinQiangYu, fishbasket.currentFishBasket["jinQiangYu"], gameObject.transform.position, tableSize);
+        SpawnFish(xueYu, fishbasket.currentFishBasket["xueYu"], gameObject.transform.position, tableSize);
+        SpawnFish(sanWenYu, fishbasket.currentFishBasket["sanWenYu"], gameObject.transform.position, tableSize);
     }
     
-    
-    //private void Start()
-    //{
-       
 
-    //    Debug.Log("青鱼"+fishbasket.currentFishBasket["qingYu"]);
-    //    Debug.Log("三文鱼" + fishbasket.currentFishBasket["sanWenYu"]);
-    //    Debug.Log("鳕鱼" + fishbasket.currentFishBasket["xueYu"]);
-    //    Debug.Log("金枪鱼" + fishbasket.currentFishBasket["jinQiangYu"]);
-
-
-
-    //}
     private void OnDrawGizmosSelected()
     {
         //Gizmos.color = new Color(1, 0, 0, 0.5f);
         Vector3 pos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y+0.5f, gameObject.transform.position.z);
-        Gizmos.DrawCube(pos, size);//根据桌子位置画一个自定义的方块
+        Gizmos.DrawCube(pos, tableSize);//根据桌子位置画一个自定义的方块
     }
 
-    public void SpawnFish(GameObject fish, int number)
+    public void SpawnFish(GameObject fish, int number, Vector3 spawnPos, Vector3 size)
     {
         FishIntoBasket fishScript = fish.GetComponent<FishIntoBasket>();
 
@@ -62,13 +50,20 @@ public class SpawnFishToFloor : MonoBehaviour
 
         for (int i = 0; i < number; i++)//根据篮子里有的鱼数量，生成对应数量的鱼
         {
-            Vector3 pos = gameObject.transform.position + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0.5f, Random.Range(-size.z / 2, size.z / 2));
+            //Vector3 pos = gameObject.transform.position + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0.5f, Random.Range(-size.z / 2, size.z / 2));
+            Vector3 newPos = GeneratePosForSpawn(spawnPos, size);
             Quaternion rotation = Quaternion.Euler(90, 0, 0);
-            GameObject instantiatedFish = Instantiate(fishMod,pos, rotation);//生成鱼
-          
+            GameObject instantiatedFish = Instantiate(fishMod,newPos, rotation);//生成鱼
+            instantiatedFish.gameObject.name=fish.name;//将生成的鱼名字改为鱼名字（去掉Clone）
+            instantiatedFish.gameObject.tag = "FishModel";
         }
     }
 
+    public Vector3 GeneratePosForSpawn(Vector3 pos,Vector3 size)
+    {
+        Vector3 newPos = pos + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0.5f, Random.Range(-size.z / 2, size.z / 2));
+        return newPos;
+    }
 
     public GameObject ResizeFish(FishIntoBasket fish)
     {

@@ -17,7 +17,7 @@ public class UI_CabinGridGenerate : MonoBehaviour
 
     private RectTransform rectTrans;
 
-
+    public FishBasket fishBasket;
     public Canvas UICabinMainStorage;
     public Canvas inputStick;
  
@@ -63,8 +63,17 @@ public class UI_CabinGridGenerate : MonoBehaviour
 
     public void CloseCabinBody()//关闭船舱
     {
+        Debug.Log("i");
+        fishBasket.ClearBasket();
         inputStick.gameObject.SetActive(true);
         UICabinMainStorage.gameObject.SetActive(false);
-       
+        
+        
+        
+        //GameObject[] currentFishModel = GameObject.FindGameObjectsWithTag("FishModel");//根据tag找到当前场面上所有的鱼模型-返回的是一个array[]
+        //foreach(GameObject model in currentFishModel) //删除当前场上所有的鱼模型
+        //{
+        //    Destroy(model);
+        //}
     }
 }
