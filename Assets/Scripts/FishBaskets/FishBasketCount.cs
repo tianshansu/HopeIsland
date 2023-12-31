@@ -32,10 +32,14 @@ public class FishBasketCount : MonoBehaviour
 
     private void OnEnable()//每次打开鱼篓界面时，恢复目前鱼篓里的鱼（从保留的dict鱼篓里生成对应鱼）
     {
-        spawnFish.SpawnFish(spawnFish.qingYu, fishBasket.keptFishBasket["qingYu"],gameObject.transform.position,size);
-        spawnFish.SpawnFish(spawnFish.sanWenYu, fishBasket.keptFishBasket["sanWenYu"], gameObject.transform.position, size);
-        spawnFish.SpawnFish(spawnFish.jinQiangYu, fishBasket.keptFishBasket["jinQiangYu"], gameObject.transform.position, size);
-        spawnFish.SpawnFish(spawnFish.xueYu, fishBasket.keptFishBasket["xueYu"], gameObject.transform.position, size);
+        spawnFish.SpawnFish2(spawnFish.qingYu, fishBasket.keptFishBasket["qingYu"],gameObject.transform.position,size);
+        spawnFish.SpawnFish2(spawnFish.sanWenYu, fishBasket.keptFishBasket["sanWenYu"], gameObject.transform.position, size);
+        spawnFish.SpawnFish2(spawnFish.jinQiangYu, fishBasket.keptFishBasket["jinQiangYu"], gameObject.transform.position, size);
+        spawnFish.SpawnFish2(spawnFish.xueYu, fishBasket.keptFishBasket["xueYu"], gameObject.transform.position, size);//生成的时候会默认进行triggerEnter，从而给鱼库里增加一条鱼，所以需要在每次生成之后立马减掉
+        //Debug.Log("EnableqingYu"+fishBasket.keptFishBasket["qingYu"]);
+        //Debug.Log("EnablesanWenYu" + fishBasket.keptFishBasket["sanWenYu"]);
+        //Debug.Log("EnablejinQiangYu" + fishBasket.keptFishBasket["jinQiangYu"]);
+        //Debug.Log("EnablexueYu" + fishBasket.keptFishBasket["xueYu"]);
     }
 
 
@@ -72,8 +76,18 @@ public class FishBasketCount : MonoBehaviour
 
         totalFishOccupy -= fishOccupy; //注意需要用int来接受这个数值
         text.text = totalFishOccupy.ToString(); //再将数值ToString
-        fishBasket.DecreaseDictionaryValue(fishBasket.keptFishBasket, other.gameObject.name);//将拿出鱼篓里的鱼记录到keptFishBasket里
         
+        if(other.gameObject!= null)
+        {
+            fishBasket.DecreaseDictionaryValue(fishBasket.keptFishBasket, other.gameObject.name);//将拿出鱼篓里的鱼记录到keptFishBasket里
+            //Debug.Log("decreased");
+        }
+        
+        //Debug.Log("qingYu" + fishBasket.keptFishBasket["qingYu"]);
+        //Debug.Log("sanWenYu" + fishBasket.keptFishBasket["sanWenYu"]);
+        //Debug.Log("jinQiangYu" + fishBasket.keptFishBasket["jinQiangYu"]);
+        //Debug.Log("xueYu" + fishBasket.keptFishBasket["xueYu"]);
+
     }
 
   public void ClearCount()

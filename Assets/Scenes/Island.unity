@@ -582,8 +582,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.6560213, z: 1}
-  m_Center: {x: 0, y: 0.3382388, z: 0}
+  m_Size: {x: 1.3285795, y: 0.9270217, z: 1.4026577}
+  m_Center: {x: -0.04312674, y: 0.30102545, z: 0.009541459}
 --- !u!1 &198504763
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,7 +1545,7 @@ MonoBehaviour:
   xueYu: {fileID: 5456366931042425042, guid: 85f268e0c8774a14eb67e98bcf885f04, type: 3}
   basket: {fileID: 6367262924842449821, guid: 6e437cbab83c3a642801ac243f7048b3, type: 3}
   tableSize: {x: 2, y: 0.8, z: 1}
-  fishbasket: {fileID: 1158912255}
+  fishBasket: {fileID: 1158912255}
 --- !u!65 &446434063
 BoxCollider:
   m_ObjectHideFlags: 0

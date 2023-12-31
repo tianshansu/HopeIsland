@@ -37,7 +37,6 @@ public class FishBasket : MonoBehaviour
         // 检查这个类别是否存在
         if (dict.ContainsKey(key))
         {
-            // Increase the value associated with the key
             dict[key]++;
         }
     }
@@ -48,7 +47,7 @@ public class FishBasket : MonoBehaviour
         // 检查这个类别是否存在
         if (dict.ContainsKey(key))
         {
-            //Debug.Log("Ye");
+            Debug.Log("Ye");
             dict[key]--;
         }
     }

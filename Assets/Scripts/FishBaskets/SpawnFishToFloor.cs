@@ -23,14 +23,14 @@ public class SpawnFishToFloor : MonoBehaviour
 
     public Vector3 tableSize;
 
-    public FishBasket fishbasket;
+    public FishBasket fishBasket;
 
     private void OnEnable()
     {
-        SpawnFish(qingYu, fishbasket.currentFishBasket["qingYu"], gameObject.transform.position,tableSize);
-        SpawnFish(jinQiangYu, fishbasket.currentFishBasket["jinQiangYu"], gameObject.transform.position, tableSize);
-        SpawnFish(xueYu, fishbasket.currentFishBasket["xueYu"], gameObject.transform.position, tableSize);
-        SpawnFish(sanWenYu, fishbasket.currentFishBasket["sanWenYu"], gameObject.transform.position, tableSize);
+        SpawnFish(qingYu, fishBasket.currentFishBasket["qingYu"], gameObject.transform.position,tableSize);
+        SpawnFish(jinQiangYu, fishBasket.currentFishBasket["jinQiangYu"], gameObject.transform.position, tableSize);
+        SpawnFish(xueYu, fishBasket.currentFishBasket["xueYu"], gameObject.transform.position, tableSize);
+        SpawnFish(sanWenYu, fishBasket.currentFishBasket["sanWenYu"], gameObject.transform.position, tableSize);
     }
     
 
@@ -39,6 +39,34 @@ public class SpawnFishToFloor : MonoBehaviour
         //Gizmos.color = new Color(1, 0, 0, 0.5f);
         Vector3 pos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y+0.5f, gameObject.transform.position.z);
         Gizmos.DrawCube(pos, tableSize);//根据桌子位置画一个自定义的方块
+    }
+
+    public void SpawnFish2(GameObject fish, int number, Vector3 spawnPos, Vector3 size)//每次打开鱼篓界面后生成已经在鱼篓中的鱼，专门用于生成一条后减掉basket里的数值
+    {
+        //Debug.Log("SpawnFish2");
+        Debug.Log("EnableqingYu" + fishBasket.keptFishBasket["qingYu"]);
+        Debug.Log("EnablesanWenYu" + fishBasket.keptFishBasket["sanWenYu"]);
+        Debug.Log("EnablejinQiangYu" + fishBasket.keptFishBasket["jinQiangYu"]);
+        Debug.Log("EnablexueYu" + fishBasket.keptFishBasket["xueYu"]);
+
+
+        FishIntoBasket fishScript = fish.GetComponent<FishIntoBasket>();
+
+        GameObject fishMod = ResizeFish(fishScript);//调用下面方法来返回一个缩放之后的模型
+
+
+        for (int i = 0; i < number; i++)//根据篮子里有的鱼数量，生成对应数量的鱼
+        {
+            //Vector3 pos = gameObject.transform.position + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0.5f, Random.Range(-size.z / 2, size.z / 2));
+            Vector3 newPos = GeneratePosForSpawn(spawnPos, size);
+            Quaternion rotation = Quaternion.Euler(90, 0, 0);
+            GameObject instantiatedFish = Instantiate(fishMod, newPos, rotation);//生成鱼
+
+            fishBasket.DecreaseDictionaryValue(fishBasket.keptFishBasket, fish.name);//专门用于生成一条后减掉basket里的数值
+            instantiatedFish.gameObject.name = fish.name;//将生成的鱼名字改为鱼名字（去掉Clone）
+            instantiatedFish.gameObject.tag = "FishModel";
+        }
+
     }
 
     public void SpawnFish(GameObject fish, int number, Vector3 spawnPos, Vector3 size)
