@@ -67,9 +67,6 @@ public class PlayerFishingFunction : MonoBehaviour
 
 
 
-
-
-
     private void Start()
     {
         lastBoneRb=lastBone.GetComponent<Rigidbody>();

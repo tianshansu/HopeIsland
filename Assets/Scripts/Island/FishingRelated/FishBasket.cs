@@ -47,15 +47,15 @@ public class FishBasket : MonoBehaviour
         // 检查这个类别是否存在
         if (dict.ContainsKey(key))
         {
-            Debug.Log("Ye");
+            //Debug.Log("Ye");
             dict[key]--;
         }
     }
 
 
-    public void ClearBasket()//篮子清空
+    public void ClearBasket(Dictionary<string, int> dict)//篮子清空
     {
-        List<string> keys = new List<string>(currentFishBasket.Keys); //新建一个list存放我的所有key
+        List<string> keys = new List<string>(dict.Keys); //新建一个list存放我的所有key
 
         foreach (string key in keys)//使用foreach读取这个list里的内容
         {
@@ -65,7 +65,7 @@ public class FishBasket : MonoBehaviour
     }
     public void CloseBasket()//关闭鱼篓
     {
-        ClearBasket();
+        ClearBasket(currentFishBasket);
 
         fishBasketCount.ClearCount();
 

@@ -44,10 +44,10 @@ public class SpawnFishToFloor : MonoBehaviour
     public void SpawnFish2(GameObject fish, int number, Vector3 spawnPos, Vector3 size)//每次打开鱼篓界面后生成已经在鱼篓中的鱼，专门用于生成一条后减掉basket里的数值
     {
         //Debug.Log("SpawnFish2");
-        Debug.Log("EnableqingYu" + fishBasket.keptFishBasket["qingYu"]);
-        Debug.Log("EnablesanWenYu" + fishBasket.keptFishBasket["sanWenYu"]);
-        Debug.Log("EnablejinQiangYu" + fishBasket.keptFishBasket["jinQiangYu"]);
-        Debug.Log("EnablexueYu" + fishBasket.keptFishBasket["xueYu"]);
+        //Debug.Log("EnableqingYu" + fishBasket.keptFishBasket["qingYu"]);
+        //Debug.Log("EnablesanWenYu" + fishBasket.keptFishBasket["sanWenYu"]);
+        //Debug.Log("EnablejinQiangYu" + fishBasket.keptFishBasket["jinQiangYu"]);
+        //Debug.Log("EnablexueYu" + fishBasket.keptFishBasket["xueYu"]);
 
 
         FishIntoBasket fishScript = fish.GetComponent<FishIntoBasket>();

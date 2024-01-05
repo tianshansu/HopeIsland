@@ -353,7 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 3
   swimSpeed: 1
-  stopTime: 3
+  stopTime: 10
 --- !u!1 &4254283608891157622
 GameObject:
   m_ObjectHideFlags: 0

@@ -64,7 +64,7 @@ public class UI_CabinGridGenerate : MonoBehaviour
     public void CloseCabinBody()//¹Ø±Õ´¬²Õ
     {
         Debug.Log("i");
-        fishBasket.ClearBasket();
+        fishBasket.ClearBasket(fishBasket.currentFishBasket);
         inputStick.gameObject.SetActive(true);
         UICabinMainStorage.gameObject.SetActive(false);
         
